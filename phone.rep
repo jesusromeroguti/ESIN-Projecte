@@ -1,0 +1,4 @@
+
+nat _num;
+string _name;
+nat _compt;
