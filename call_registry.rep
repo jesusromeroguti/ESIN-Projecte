@@ -1,0 +1,5 @@
+struct node{
+  phone p;
+  node *seg;
+};
+node *_prim;
