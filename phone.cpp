@@ -54,11 +54,13 @@ phone phone::operator++(int) throw(){
 }
 
 bool phone::operator>(const phone& T) const throw(){
-  // bool t;
-  // if(_compt > T._compt) return true;
-  // else if(_compt == T._compt){
-  //   if(){}
-  // }
+  bool t;
+  if(_compt > T._compt) return true;
+  else if(_compt == T._compt){
+    for(int i = 0; i < _name.size(); i++){
+      continue;
+    }
+  }
 
 }
 
@@ -66,9 +68,14 @@ bool phone::operator==(const phone& T) const throw(){
   bool t = true;
   if(_compt != T._compt) return false;
   else {
+    if(_name.size() != T._name.size()) return false;
     for(int i = 0; i < _name.size(); i++){
-      if(_name[i] == T._name[i]) return false;
+      if(_name[i] != T._name[i]) return false;
     }
   }
   return t;
+}
+
+bool phone::operator!=(const phone& T) const throw(){
+  return !(*this == T);
 }
