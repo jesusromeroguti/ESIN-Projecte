@@ -54,15 +54,31 @@ phone phone::operator++(int) throw(){
 }
 
 bool phone::operator>(const phone& T) const throw(){
-  bool t = true;
   if(_compt > T._compt) return true;
   else if(_compt == T._compt){
-    for(int i = 0; i < _name.size(); i++){
-      if(_name[i] < T._name[i]) return false;
-    }
-  }
-  return t;
+    if(_name > T._name) return true;
+  } else return false;
+}
 
+bool phone::operator<(const phone& T) const throw(){
+  if(_compt < T._compt) return true;
+  else if(_compt == T._compt){
+    if(_name < T._name) return true;
+  } else return false;
+}
+
+bool phone::operator<=(const phone& T) const throw(){
+  if(_compt <= T._compt) return true;
+  else if(_compt == T._compt){
+    if(_name <= T._name) return true;
+  } else return false;
+}
+
+bool phone::operator>=(const phone& T) const throw(){
+  if(_compt >= T._compt) return true;
+  else if(_compt == T._compt){
+    if(_name >= T._name) return true;
+  } else return false;
 }
 
 bool phone::operator==(const phone& T) const throw(){
