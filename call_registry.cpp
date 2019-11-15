@@ -5,6 +5,9 @@ call_registry::call_registry() throw(error) : _prim(NULL), _size(0){}
 call_registry::call_registry(const call_registry& R) throw(error) : _prim(R._prim), _size(R._size){
 }
 
+call_registry::~call_registry() throw(){
+
+}
 
 void call_registry::registra_trucada(nat num) throw(error){
   // Si hi ha una entrada amb el num corresponent incrementem compt

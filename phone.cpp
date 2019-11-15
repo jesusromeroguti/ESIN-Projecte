@@ -1,7 +1,8 @@
 #include "phone.hpp"
 
 
-/*Preguntar si el throw(error) s'ha de llançar també en comprovacions del num i del compt*/
+/*  1.-Preguntar si el throw(error) s'ha de llançar també en comprovacions del num i del compt
+    2.-Revisar el tractament dels negatius per no permesos, ara mateix es poden ficar*/
 phone::phone(nat num, const string& name, nat compt) throw(error){
   _num = num;
   for(int i = 0; i < name.size(); i++){
