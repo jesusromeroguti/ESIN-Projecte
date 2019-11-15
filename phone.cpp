@@ -1,5 +1,7 @@
 #include "phone.hpp"
 
+
+/*Preguntar si el throw(error) s'ha de llançar també en comprovacions del num i del compt*/
 phone::phone(nat num, const string& name, nat compt) throw(error){
   _num = num;
   for(int i = 0; i < name.size(); i++){
@@ -11,12 +13,14 @@ phone::phone(nat num, const string& name, nat compt) throw(error){
   _compt = compt;
 }
 
+// Preguntar quan s'ha de llençar el error si amb el name o amb els altres tambe
 phone::phone(const phone& T) throw(error){
   _num = T._num;
   _name = T._name;
   _compt = T._compt;
 }
 
+// Preguntar quan s'ha de llençar el error si amb el name o amb els altres tambe
 phone& phone::operator=(const phone& T) throw(error){
   if(this != &T){
     _num = T._num;

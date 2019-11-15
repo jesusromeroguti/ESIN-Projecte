@@ -1,5 +1,6 @@
 struct node{
-  phone p;
+  phone tel;
   node *seg;
 };
 node *_prim;
+nat _size;
