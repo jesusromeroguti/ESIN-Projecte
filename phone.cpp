@@ -47,11 +47,12 @@ nat phone::frequencia() const throw() {
   return _compt;
 }
 
+// Preguntar si esta be el return aixi
 phone& phone::operator++() throw(){
   _compt++;
   return *this;
 }
-
+// Preguntar si aixi es retorna l'objecte sense incrementar
 phone phone::operator++(int) throw(){
   phone aux(*this);
   _compt++;
@@ -86,6 +87,7 @@ bool phone::operator>=(const phone& T) const throw(){
   } else return false;
 }
 
+// Preguntar si a igual frequencia es true o si han de ser name iguals
 bool phone::operator==(const phone& T) const throw(){
   bool t = true;
   if(_compt != T._compt) return false;

@@ -103,9 +103,14 @@ void call_registry::elimina(nat num) throw(error){
 
 bool call_registry::conte(nat num) const throw() {
   node *aux = _prim;
+  cout << "hey" << endl;
   bool t = false;
   while(aux != NULL && !t){
-    if(aux->tel.numero() == num) t = true;
+    cout << "hey2" << endl;
+    if(aux->tel.numero() == num) {
+      t = true;
+      cout << "he3" << endl;
+    }
     else aux = aux->seg;
   }
   return t;
