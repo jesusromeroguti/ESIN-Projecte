@@ -65,6 +65,17 @@ int main(){
   p2++;
   cout << p2.frequencia() << endl;
 
+  phone p11(123456789, "Aleix", 10);
+  phone p12(p11);
+  phone p13(987654321, "Aleix", 10);
+
+  cout << "El nom del p12 es: " << p12.nom() << endl;
+  cout << "El numero del p12 es: " << p12.numero()<< endl;
+  cout << "La freq del p12 es: " << p12.frequencia() << endl;
+
+  bool b10 = p11 == p12;
+  bool b11 = p13 == p11;
+  cout << b10 << " " << b11 << endl;
 
 
 }

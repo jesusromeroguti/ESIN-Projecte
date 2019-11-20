@@ -89,15 +89,7 @@ bool phone::operator>=(const phone& T) const throw(){
 
 // Preguntar si a igual frequencia es true o si han de ser name iguals
 bool phone::operator==(const phone& T) const throw(){
-  bool t = true;
-  if(_compt != T._compt) return false;
-  else {
-    if(_name.size() != T._name.size()) return false;
-    for(int i = 0; i < _name.size(); i++){
-      if(_name[i] != T._name[i]) return false;
-    }
-  }
-  return t;
+  return _compt == T._compt && _name == T._name && _num == T._num;
 }
 
 bool phone::operator!=(const phone& T) const throw(){
