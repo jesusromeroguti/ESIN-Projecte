@@ -1,8 +1,6 @@
 #include "call_registry.hpp"
 
-/* !!!!!!! -La funcio de hash de la part privada no aconseguixo
-            que l'agafi el cpp em diu que no hi ha cap funcio membre
-            de call_registry amb el no funcio_hash.
+/* !!!!!!! -Hem de trobar una bona funcio de hash per que no totes funcionen be.
             -L'he cambiat el nom a la funcio de hash perque en la classe
             nat que utilitzem pels naturals ja hi havia una funcio de igual nom
             has i creaba conflictes !!!!!!!!!!!!!!*/
@@ -19,8 +17,8 @@ call_registry::call_registry() throw(error): _quants(0){
 call_registry::~call_registry() throw(){}
 
 void call_registry::registra_trucada(nat num) throw(error){
-  // nat i = hash(num);
-  nat i = num % _size;
+  nat i = funcio_hash(num);
+  // nat i = num % _size;
   node_hash *p = _taula[i];
   bool trobat = false;
   while(p != NULL && !trobat){
@@ -46,8 +44,8 @@ void call_registry::assigna_nom(nat num, const string& name) throw(error){
 bool call_registry::conte(nat num) const throw(){
   bool trobat;
   // Obtenim la posició a la _taula
-  // nat i = hash(num);
-  nat i = num % _size;
+  nat i = funcio_hash(num);
+  // nat i = num % _size;
   cout << "i = " << i << endl;
   // p conte el primer punter de la posición on hauria d'estar el num
   node_hash *p = _taula[i];
@@ -105,9 +103,15 @@ nat call_registry::num_entrades() const throw(){
 
 call_registry::node_hash::node_hash(const nat &k, const phone &tel, node_hash *seg) throw(error) : _k(k), _tel(tel), seg(seg){}
 
-// util::nat call_registry::funcio_hash(const nat &x) const throw(){
-//     cout << "hola_hash" << endl;
-//     nat res = x % _size;
-//     cout << res << endl;
-//     return res;
-// }
+nat call_registry::funcio_hash(nat x) const throw(){
+    // nat suma = 0;
+    // int y;
+    // while(x > 0){
+    //   y = x % 1000;
+    //   x = x / 1000;
+    //   suma += y;
+    // }
+    // return suma % _size;
+    nat i = x % _size;
+    return i;
+}

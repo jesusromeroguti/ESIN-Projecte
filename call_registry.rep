@@ -10,4 +10,5 @@ node_hash **_taula; // Taula de punters node_hash
 nat _size;          // Mida de la Taula
 nat _quants;        // Quants elements hi ha a la Taula
 
-//nat funcio_hash(const nat &x) const throw();
+// static long const MULT = 31415926;
+nat funcio_hash(nat x) const throw();
