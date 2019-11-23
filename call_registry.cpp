@@ -38,7 +38,19 @@ void call_registry::registra_trucada(nat num) throw(error){
 }
 
 void call_registry::assigna_nom(nat num, const string& name) throw(error){
-
+  if (conte(num)) {
+    //es estupid recorrer la taula 2 cops (pq no retorna la posició)
+  }
+  else {
+    int i = funcio_hash(num);
+    node_hash *p = _taula[i];
+    while(p->seg != NULL) {
+      p = p->seg;
+    }
+    phone t(num,"", i);
+    _taula[i] = new node_hash(num, t, _taula[i]);
+    ++_quants;
+  }
 }
 
 bool call_registry::conte(nat num) const throw(){
