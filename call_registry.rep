@@ -12,3 +12,6 @@ nat _quants;        // Quants elements hi ha a la Taula
 
 // static long const MULT = 31415926;
 nat funcio_hash(nat x) const throw();
+
+//Funció privada que retorna el punter on hi ha l'element
+node_hash* pos_element(nat num) const throw();

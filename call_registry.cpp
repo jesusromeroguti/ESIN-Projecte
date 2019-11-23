@@ -18,14 +18,14 @@ call_registry::~call_registry() throw(){}
 
 void call_registry::registra_trucada(nat num) throw(error){
   nat i = funcio_hash(num);
-  // nat i = num % _size;
+  // // nat i = num % _size;
   node_hash *p = _taula[i];
-  bool trobat = false;
-  while(p != NULL && !trobat){
-    if(p->_k == num) trobat = true;
-    else p = p->seg;
-  }
-  if(trobat){
+  // bool trobat = false;
+  // while(p != NULL && !trobat){
+  //   if(p->_k == num) trobat = true;
+  //   else p = p->seg;
+  // }
+  if(conte(num)){
     // Posicio de la llista (node) on esta el num que ens interesa
     p->_tel++;
   } else {
@@ -38,35 +38,35 @@ void call_registry::registra_trucada(nat num) throw(error){
 }
 
 void call_registry::assigna_nom(nat num, const string& name) throw(error){
-  if (conte(num)) {
-    //es estupid recorrer la taula 2 cops (pq no retorna la posició)
+  nat i = funcio_hash(num);
+  node_hash *n = pos_element(num);
+  if (n != NULL) {
+    phone t(num, name, n->_tel.frequencia());
+    n->_tel = t;
   }
   else {
-    int i = funcio_hash(num);
-    node_hash *p = _taula[i];
-    while(p->seg != NULL) {
-      p = p->seg;
-    }
-    phone t(num,"", i);
+    phone t(num, name, 0);
     _taula[i] = new node_hash(num, t, _taula[i]);
     ++_quants;
   }
 }
 
 bool call_registry::conte(nat num) const throw(){
-  bool trobat;
-  // Obtenim la posició a la _taula
-  nat i = funcio_hash(num);
-  // nat i = num % _size;
-  cout << "i = " << i << endl;
-  // p conte el primer punter de la posición on hauria d'estar el num
-  node_hash *p = _taula[i];
-  trobat = false;
-  while(p != NULL && !trobat){
-    if(p->_k == num) trobat = true;
-    else p->seg;
-  }
-  return trobat;
+  // bool trobat;
+  // // Obtenim la posició a la _taula
+  // nat i = funcio_hash(num);
+  // // nat i = num % _size;
+  // cout << "i = " << i << endl;
+  // // p conte el primer punter de la posición on hauria d'estar el num
+  // node_hash *p = _taula[i];
+  // trobat = false;
+  // while(p != NULL && !trobat){
+  //   if(p->_k == num) trobat = true;
+  //   else p->seg;
+  // }
+  //return trobat;
+  node_hash *n = pos_element(num);
+  return (n != NULL);
 }
 
 string call_registry::nom(nat num) const throw(error){
@@ -126,4 +126,17 @@ nat call_registry::funcio_hash(nat x) const throw(){
     // return suma % _size;
     nat i = x % _size;
     return i;
+}
+
+call_registry::node_hash* call_registry::pos_element(nat num) const throw(){
+  nat i = funcio_hash(num);
+  // p conte el primer punter de la posición on hauria d'estar el num
+  node_hash *p = _taula[i];
+  bool trobat = false;
+  while(!trobat){
+    if(p->_k == num) trobat = true;
+    else if (p == NULL) return p;
+    else p = p->seg;
+  }
+  return p;
 }
