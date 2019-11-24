@@ -28,4 +28,7 @@ int main(){
   c.registra_trucada(123456789);
   nat f2 = c.num_trucades(123456789);
   cout << "num trucades: " << f2 << endl;
+  c.assigna_nom(123456789, "Jesus");
+  string nom2 = c.nom(123456789);
+  cout << "Nom del tel 123456789: " << nom2 << endl;
 }

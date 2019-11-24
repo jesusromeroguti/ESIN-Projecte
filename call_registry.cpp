@@ -133,7 +133,7 @@ call_registry::node_hash* call_registry::pos_element(nat num) const throw(){
   // p conte el primer punter de la posición on hauria d'estar el num
   node_hash *p = _taula[i];
   bool trobat = false;
-  while(!trobat){
+  while(p != NULL && !trobat){
     if(p->_k == num) trobat = true;
     else if (p == NULL) return p;
     else p = p->seg;
