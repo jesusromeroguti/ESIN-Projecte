@@ -4,6 +4,7 @@ struct node_hash{
   phone _tel; // Valor
   node_hash *seg;
   node_hash(const nat &k, const phone &tel, node_hash *seg = NULL) throw(error);
+  node_hash();
 };
 
 node_hash **_taula; // Taula de punters node_hash
@@ -11,7 +12,12 @@ nat _size;          // Mida de la Taula
 nat _quants;        // Quants elements hi ha a la Taula
 
 // static long const MULT = 31415926;
+// Funció privada de hash
 nat funcio_hash(nat x) const throw();
 
-//Funció privada que retorna el punter on hi ha l'element
+// Funció privada que retorna el punter on hi ha l'element
 node_hash* pos_element(nat num) const throw();
+
+// Funció privada que retorna cert nomes si tots els noms
+// d'una llista de la taula de hash son diferenets
+// bool diferents_llista() const throw(error);

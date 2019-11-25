@@ -16,7 +16,7 @@ int main(){
   cout << t << endl;
   c.registra_trucada(626468480);
   nat i = c.num_entrades();
-  cout << i << endl;
+  cout << "num entrades: " <<i << endl;
   bool b = c.es_buit();
   cout << b << endl;
   nat f = c.num_trucades(123456789);
@@ -31,4 +31,32 @@ int main(){
   c.assigna_nom(123456789, "Jesus");
   string nom2 = c.nom(123456789);
   cout << "Nom del tel 123456789: " << nom2 << endl;
+  c.registra_trucada(123456789);
+  nat l = c.num_trucades(123456789);
+  cout << "Num trucades: " << l << endl;
+
+  // Prueba assigna_nom
+  c.assigna_nom(987654321, "Marta");
+  bool con1 = c.conte(987654321);
+  cout << con1 << endl;
+  nat e = c.num_entrades();
+  cout << "num entrades: " << e << endl;
+
+  // Prueba de Elimina
+  c.elimina(626468480);
+  bool con = c.conte(626468480);
+  cout << con << endl;
+  nat x = c.num_entrades();
+  cout << "num entrades despres de elimina 626468480: " << x << endl;
+  // c.elimina(626468480);
+
+  // Prueba constructor per copia
+  call_registry c2(c);
+  nat nume = c2.num_entrades();
+  cout << "numero d'entrades c2: " << nume << endl;
+  bool c2c = c2.conte(123456789);
+  cout << c2c << endl;
+  nat trucades = c2.num_trucades(123456789);
+  cout << "numero de trucades 123456789 en c2: " <<trucades << endl;
+
 }

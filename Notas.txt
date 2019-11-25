@@ -1,0 +1,24 @@
+Dudas, notas, cosas que hacer/acabar:
+--Dudas:
+  - Utilitzar una funcio privada per fer la cerca.
+
+--Cosas que hacer:
+  - Operador=
+  - Funcio dump
+  - Afegir dispersio
+  - Mirar si estan ben fetes les excepcions
+  - Trobar una bona funcio de dispersio
+
+-- Redispersió:
+  - Factor de carrega = nº actual elements / tamany _taula
+   ----> factor_carrega = _quants / _size
+  - Si factor de carrega > 0.75 --> Redispersió
+
+-- Funcions implementades noves:
+  - Constructor per copia
+  - Destructor
+  - Actualitzats metodes amb la funcio pos_element
+  - Metode elimina
+  - Implementat constructor per defecte de la clase node
+    per si necesitem construir un node sense pasarli parametres
+  - Ampliats els jocs de proba.
