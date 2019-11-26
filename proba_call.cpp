@@ -59,4 +59,32 @@ int main(){
   nat trucades = c2.num_trucades(123456789);
   cout << "numero de trucades 123456789 en c2: " <<trucades << endl;
 
+
+  // Proves dump
+  vector<phone> v;
+  call_registry call;
+  call.registra_trucada(123456789);
+  call.assigna_nom(123456789, "Jesus");
+  call.registra_trucada(626468480);
+  call.assigna_nom(626468480, "Marta");
+  // call.registra_trucada(987654321);
+  // call.assigna_nom(987654321, "Marta");
+  call.dump(v);
+  cout << v.size() << endl;
+
+  cout << "------------------------------------------------" << endl;
+
+  // Proves operator=
+  call_registry reg;
+  bool m = reg.es_buit();
+  nat ne = reg.num_entrades();
+  cout << "numero entrades abans del = es: " << ne << endl;
+  cout << m << endl;
+  reg = call;
+  nat reg_entrades = reg.num_entrades();
+  cout << "El numero d'entrades de reg es: " << reg_entrades << endl;
+  cout << reg.nom(123456789) << endl;
+  cout << reg.nom(626468480) << endl;
+  bool reg_conte = reg.conte(123456789);
+  cout << reg_conte << endl;
 }

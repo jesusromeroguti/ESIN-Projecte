@@ -1,9 +1,5 @@
 #include "call_registry.hpp"
 
-/* !!!!!!! -Hem de trobar una bona funcio de hash per que no totes funcionen be.
-            -L'he cambiat el nom a la funcio de hash perque en la classe
-            nat que utilitzem pels naturals ja hi havia una funcio de igual nom
-            has i creaba conflictes !!!!!!!!!!!!!!*/
 
 // Cost lineal
 call_registry::call_registry() throw(error): _quants(0){
@@ -45,6 +41,15 @@ call_registry::call_registry(const call_registry& R) throw(error): _quants(R._qu
     // seg ultim node apunta a NULL
     desti->seg = NULL;
   }
+}
+
+call_registry& call_registry::operator=(const call_registry& R) throw(error){
+  if(this != &R){
+    call_registry aux(R);
+    // Potser abans borrar lo que conte el parametre implicit?
+    swap(aux);
+  }
+  return *this;
 }
 
 call_registry::~call_registry() throw(){
@@ -156,6 +161,35 @@ nat call_registry::num_entrades() const throw(){
 }
 
 void call_registry::dump(vector<phone>& V) const throw(error){
+  // V.resize(_quants);
+  cout << "hol1" << endl;
+  // boolea que indica si hi ha dos noms repetits
+  bool iguals = false;
+  // Fem el volcat dels phones
+  for(int i = 0; i < _size; i++){
+    node_hash *p = _taula[i];
+    while(p != NULL){
+      // V[i] = p->_tel;
+      V.push_back(p->_tel);
+      p = p->seg;
+    }
+  }
+
+  for(int x = 0; x < V.size(); x++){
+    cout << V[x].nom() << endl;
+  }
+
+  // Mirar si hi han noms repetits
+  for(int j = 0; j <V.size(); j++){
+    string name = V[j].nom();
+    for(int k = j + 1; k < V.size(); k++){
+      if(V[j] == V[k]){
+        iguals = true;
+        throw error(ErrNomRepetit);
+      }
+    }
+  }
+  cout << "iguals es: " <<iguals << endl;
 
 }
 
@@ -186,6 +220,19 @@ call_registry::node_hash* call_registry::pos_element(nat num) const throw(){
   }
   return p;
 }
+
+void call_registry::swap(call_registry &R) throw(){
+  node_hash **aux = _taula;
+  _taula = R._taula;
+  R._taula = aux;
+  nat auxs = _size;
+  _size = R._size;
+  R._size = auxs;
+  auxs = _quants;
+  _quants = R._quants;
+  R._quants = auxs;
+}
+
 
 // Constructor per defecte
 call_registry::node_hash::node_hash(){}

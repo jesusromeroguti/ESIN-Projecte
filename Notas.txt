@@ -1,9 +1,10 @@
 Dudas, notas, cosas que hacer/acabar:
 --Dudas:
   - Utilitzar una funcio privada per fer la cerca.
+  - Esta ben fet el constructor per copia? (amb swap i sense delete)
 
 --Cosas que hacer:
-  - Operador=
+  - Operador= |X| --> Ja esta fet
   - Funcio dump
   - Afegir dispersio
   - Mirar si estan ben fetes les excepcions
@@ -22,3 +23,5 @@ Dudas, notas, cosas que hacer/acabar:
   - Implementat constructor per defecte de la clase node
     per si necesitem construir un node sense pasarli parametres
   - Ampliats els jocs de proba.
+  - Operador=
+  - Funcio auxiliar swap per implementar l'operador =
