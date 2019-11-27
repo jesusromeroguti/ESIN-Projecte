@@ -47,6 +47,10 @@ call_registry::call_registry(const call_registry& R) throw(error): _quants(R._qu
   }
 }
 
+call_registry& operator=(const call_registry& R) throw(error) {
+
+}
+
 call_registry::~call_registry() throw(){
   node_hash *p;
   // node que apunta al element segunt de la llista
@@ -156,7 +160,23 @@ nat call_registry::num_entrades() const throw(){
 }
 
 void call_registry::dump(vector<phone>& V) const throw(error){
-
+  node_hash p;
+  for(int i = 0; i < _size; i++){
+    p = _taula[i];
+    if(_taula[i] != NULL){
+    	while(p != NULL){
+          v.push_back(p->_tel);
+          p = p->seg;
+    	}
+  	} else continue;
+  }
+  bool iguals = false;
+  for(int j = 0; j < V.size() and not iguals; j++){
+    for(int k = 0; k < V.size() and not iguals; k++){
+      if(j == k) continue;
+      if(V[j] == V[k]) iguals = true;
+    }
+  }
 }
 
 call_registry::node_hash::node_hash(const nat &k, const phone &tel, node_hash *seg) throw(error) : _k(k), _tel(tel), seg(seg){}
@@ -181,7 +201,6 @@ call_registry::node_hash* call_registry::pos_element(nat num) const throw(){
   bool trobat = false;
   while(p != NULL && !trobat){
     if(p->_k == num) trobat = true;
-    else if (p == NULL) return p;
     else p = p->seg;
   }
   return p;
