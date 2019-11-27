@@ -261,20 +261,11 @@ void call_registry::swap(call_registry &R) throw(){
 // Constructor per defecte
 call_registry::node_hash::node_hash(){}
 
-// bool call_registry::diferents() const throw(error){
-//   bool iguals = false;
-//   nat i = 0;
-//   // Bucle per a recorrer tota la _taula
-//   while(i < _size && !iguals){
-//     // Agafo el nom del primer phone de la _taula
-//     string nom = _taula[i]->_tel.nom();
-//     node_hash *p = _taula[i]->seg;
-//     // Comparo tots els noms amb el que tinc guardat
-//     while(p != NULL && !iguals){
-//       if(p->_tel.nom() == nom) iguals = true;
-//       else p = p->seg;
-//     }
-//     // Seguent posicio de la _taula
-//     i++
-//   }
-// }
+// Funcio per saber si es sobrepasa el factor de carrega
+bool call_registry::factor_carrega(){
+  bool superior = false;
+  float carrega = _quants / _size;
+  if(carrega > 0.75) superior = true;
+  else superior = false;
+  return superior;
+}

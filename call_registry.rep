@@ -20,6 +20,23 @@ node_hash* pos_element(nat num) const throw();
 
 // Funcio swap auxiliar pel operator=
 void swap(call_registry& R) throw();
-// Funció privada que retorna cert nomes si tots els noms
-// d'una llista de la taula de hash son diferenets
-// bool diferents_llista() const throw(error);
+
+// Funcio que calcula el factor de carrega.
+// Retorna cert si i nomes si el factor de carrgea es
+// superior a 0.75
+bool factor_carrega();
+
+// Funcio que realitza un augment del tamany
+// de la _tala per fer Redispersió
+void redispersio() const throw(){
+  node_hash **nova_taula = new node_hash*[_size*2];
+
+  for(int i = 0; i < _taula; i++){
+    node_hash *p = _taula[i];
+    while(p != NULL){
+      nat clau = p->_k;
+      node_hash nova_posicio = funcio_hash(clau);
+
+    }
+  }
+}
