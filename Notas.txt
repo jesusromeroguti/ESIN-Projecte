@@ -25,3 +25,16 @@ Dudas, notas, cosas que hacer/acabar:
   - Ampliats els jocs de proba.
   - Operador=
   - Funcio auxiliar swap per implementar l'operador =
+
+
+- Cosas que m'ha dit el jordi:
+  - Funcio elimina --> Redispersio si la taula es molt gran pels elements que tens
+  - Funcio de redispersio:
+
+  1. Creo la nova taula amb _size*2
+  2. Recorro la taula antiga per copiar els elements a la nova
+  3. Utilitzo la funcio de hash per saber on ha d'estar l'element en la nova taula
+  4. Borrar la taula antiga per alliberar memoria
+  5. Assigna nova_taula a _taula
+
+  

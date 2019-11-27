@@ -28,7 +28,7 @@ bool factor_carrega();
 
 // Funcio que realitza un augment del tamany
 // de la _tala per fer Redispersió
-/*void redispersio() const throw(){
+void redispersio() const throw(){
   node_hash **nova_taula = new node_hash*[_size*2];
 
   for(int i = 0; i < _taula; i++){
@@ -36,7 +36,17 @@ bool factor_carrega();
     while(p != NULL){
       nat clau = p->_k;
       node_hash nova_posicio = funcio_hash(clau);
-
+      // Altre opcio: En comptes de crear nous nodes
+      // assignar els antics nodes a la nova taula
+      // Si no haurem de eliminar tots els elements
+      // de la taula de la mateixa manera que el destructor
+      // El cost de la segona opcio es major
+      nova_taula[nova_posicio] = new node_hash(clau, p->_tel, nova_taula[i]);
+      p = p->seg;
     }
   }
-}*/
+  // Borrar tots els elements de la taula
+  // Cridar una funcio de 
+  delete[] _taula;
+  _taula = nova_taula;
+}

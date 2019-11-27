@@ -1,6 +1,5 @@
 #include "call_registry.hpp"
 
-
 // Cost lineal
 call_registry::call_registry() throw(error): _quants(0){
   _size = 50;
