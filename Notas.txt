@@ -4,7 +4,7 @@ Dudas, notas, cosas que hacer/acabar:
   - Esta ben fet el constructor per copia? (amb swap i sense delete)
 
 --Cosas que hacer:
-  - Operador= |X| --> Ja esta fet
+  - Arreglar els operadors de >= i <= per passat els jocs de prova. (PRIORITAT) 
   - Funcio dump
   - Afegir dispersio
   - Mirar si estan ben fetes les excepcions
@@ -28,6 +28,9 @@ Dudas, notas, cosas que hacer/acabar:
 
 
 - Cosas que m'ha dit el jordi:
+  - El cost amb la funcio de redisperio no es problema perque de n crides (on n es gran)
+    nomes es cridara la redispersio en casos puntuals i es mantindra que el cost de mitja es
+    constant cumplint la eficiencia en el cas mitja o en el cas pitjor.
   - Funcio elimina --> Redispersio si la taula es molt gran pels elements que tens
   - Funcio de redispersio:
 
@@ -37,4 +40,6 @@ Dudas, notas, cosas que hacer/acabar:
   4. Borrar la taula antiga per alliberar memoria
   5. Assigna nova_taula a _taula
 
-  
+  * En comptes de crear nous nodes i afegirlos a la nova taula es pot apuntar els ja existents
+    a la taula nova. Aixi ens estalviem moltes creacions de nodes i haber de esborrar node per node
+    la taula de nodes antiga.

@@ -28,14 +28,14 @@ bool factor_carrega();
 
 // Funcio que realitza un augment del tamany
 // de la _tala per fer Redispersió
-void redispersio() const throw(){
+/*void redispersio() const throw(){
   node_hash **nova_taula = new node_hash*[_size*2];
 
-  for(int i = 0; i < _taula; i++){
+  for(int i = 0; i < _size; i++){
     node_hash *p = _taula[i];
     while(p != NULL){
       nat clau = p->_k;
-      node_hash nova_posicio = funcio_hash(clau);
+      nat nova_posicio = funcio_hash(clau);
       // Altre opcio: En comptes de crear nous nodes
       // assignar els antics nodes a la nova taula
       // Si no haurem de eliminar tots els elements
@@ -46,7 +46,21 @@ void redispersio() const throw(){
     }
   }
   // Borrar tots els elements de la taula
-  // Cridar una funcio de 
+  // Cridar una funcio de
+  node_hash *p;
+  // node que apunta al element segunt de la llista
+  node_hash *pseg;
+  // Recorrerem tota la taula i eliminarem tots els elements
+  // de la llista contenida en cada posicio de la taula
+  for(int i = 0; i < _size; i++){
+    p = _taula[i];
+    while(p != NULL){
+      pseg = p->seg;
+      delete p;
+      p = pseg;
+    }
+  }
+  // eliminem la _taula
   delete[] _taula;
   _taula = nova_taula;
-}
+}*/
