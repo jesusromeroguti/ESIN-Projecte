@@ -89,7 +89,7 @@ bool phone::operator>=(const phone& T) const throw(){
 
 // Preguntar si a igual frequencia es true o si han de ser name iguals
 bool phone::operator==(const phone& T) const throw(){
-  return _compt == T._compt && _name == T._name && _num == T._num;
+  return _compt == T._compt && _name == T._name;
 }
 
 bool phone::operator!=(const phone& T) const throw(){

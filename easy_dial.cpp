@@ -20,7 +20,7 @@ Si no existeix F(S, p) (i per tant tampoc pot existir F(S, p'))
 llavors es produeix un error i el prefix en curs queda indefinit.
 Naturalment, es produeix un error si el prefix en curs inicial p
 fos indefinit. */
-string easy_dial::seguent(char c) throw(error);
+string easy_dial::seguent(char c) throw(error){}
 
 /* Elimina l'últim caràcter del prefix en curs p = p' · a
 (a és el caràcter eliminat). Retorna el nom F(S, p')
@@ -48,4 +48,4 @@ obtenir el telèfon el nom del qual és s. La funció retorna la suma
 per tots els telèfons s del conjunt X, sent Pr(s) la probabilitat de
 telefonar a s. La probabilitat s'obté dividint la freqüència de s per
 la suma de totes les freqüències. */
-double easy_dial::ongitud_mitjana() const throw(){}
+double easy_dial::longitud_mitjana() const throw(){}
