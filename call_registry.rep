@@ -18,6 +18,8 @@ nat funcio_hash(nat x) const throw();
 // Funció privada que retorna el punter on hi ha l'element
 node_hash* pos_element(nat num) const throw();
 
+// Funcio swap auxiliar pel operator=
+void swap(call_registry& R) throw();
 // Funció privada que retorna cert nomes si tots els noms
 // d'una llista de la taula de hash son diferenets
 // bool diferents_llista() const throw(error);
