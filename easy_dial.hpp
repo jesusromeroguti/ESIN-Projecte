@@ -3,7 +3,7 @@
 
 #include "call_registry.hpp"
 #include <esin/error>
-#include <esin/util>   
+#include <esin/util>
 #include <string>
 #include <vector>
 
@@ -13,7 +13,7 @@ using util::nat;
 class easy_dial {
 public:
 
-  /* Construeix un easy_dial a partir de la 
+  /* Construeix un easy_dial a partir de la
   informació continguda en el call_registry donat. El
   prefix en curs queda indefinit. */
   easy_dial(const call_registry& R) throw(error);
@@ -30,19 +30,19 @@ public:
   /* Retorna el nom de F(S, p') on p' és el prefix resultant d'afegir
   el caràcter c al final del prefix en curs p i
   fa que el nou prefix en curs sigui p'.
-  Si F(S, p) existeix però F(S, p') no existeix llavors retorna 
-  l'string buit. 
+  Si F(S, p) existeix però F(S, p') no existeix llavors retorna
+  l'string buit.
   Si no existeix F(S, p) (i per tant tampoc pot existir F(S, p'))
-  llavors es produeix un error i el prefix en curs queda indefinit. 
-  Naturalment, es produeix un error si el prefix en curs inicial p 
+  llavors es produeix un error i el prefix en curs queda indefinit.
+  Naturalment, es produeix un error si el prefix en curs inicial p
   fos indefinit. */
   string seguent(char c) throw(error);
 
   /* Elimina l'últim caràcter del prefix en curs p = p' · a
-  (a és el caràcter eliminat). Retorna el nom F(S, p') 
-  i fa que el nou prefix en curs sigui p'. 
+  (a és el caràcter eliminat). Retorna el nom F(S, p')
+  i fa que el nou prefix en curs sigui p'.
   Es produeix un error si p fos buida i si es fa que el prefix en curs
-  quedi indefinit. Òbviament, també es produeix un error 
+  quedi indefinit. Òbviament, també es produeix un error
   si p fos indefinit. */
   string anterior() throw(error);
 
@@ -51,7 +51,7 @@ public:
   no existeix F(S, p). */
   nat num_telf() const throw(error);
 
-  /* Retorna en el vector result tots els noms dels contactes de 
+  /* Retorna en el vector result tots els noms dels contactes de
   telèfon que comencen amb el prefix pref, en ordre lexicogràfic creixent. */
   void comencen(const string& pref, vector<string>& result) const throw(error);
 

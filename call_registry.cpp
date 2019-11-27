@@ -43,10 +43,7 @@ call_registry::call_registry(const call_registry& R) throw(error): _quants(R._qu
   }
 }
 
-<<<<<<< HEAD
-call_registry& operator=(const call_registry& R) throw(error) {
 
-=======
 call_registry& call_registry::operator=(const call_registry& R) throw(error){
   if(this != &R){
     call_registry aux(R);
@@ -54,7 +51,6 @@ call_registry& call_registry::operator=(const call_registry& R) throw(error){
     swap(aux);
   }
   return *this;
->>>>>>> 37a18a3e70c68f94d0ecbbfd7e16edd6a5956c6f
 }
 
 call_registry::~call_registry() throw(){
@@ -166,25 +162,6 @@ nat call_registry::num_entrades() const throw(){
 }
 
 void call_registry::dump(vector<phone>& V) const throw(error){
-<<<<<<< HEAD
-  node_hash p;
-  for(int i = 0; i < _size; i++){
-    p = _taula[i];
-    if(_taula[i] != NULL){
-    	while(p != NULL){
-          v.push_back(p->_tel);
-          p = p->seg;
-    	}
-  	} else continue;
-  }
-  bool iguals = false;
-  for(int j = 0; j < V.size() and not iguals; j++){
-    for(int k = 0; k < V.size() and not iguals; k++){
-      if(j == k) continue;
-      if(V[j] == V[k]) iguals = true;
-    }
-  }
-=======
   // V.resize(_quants);
   cout << "hol1" << endl;
   // boolea que indica si hi ha dos noms repetits
@@ -215,7 +192,6 @@ void call_registry::dump(vector<phone>& V) const throw(error){
   }
   cout << "iguals es: " <<iguals << endl;
 
->>>>>>> 37a18a3e70c68f94d0ecbbfd7e16edd6a5956c6f
 }
 
 call_registry::node_hash::node_hash(const nat &k, const phone &tel, node_hash *seg) throw(error) : _k(k), _tel(tel), seg(seg){}

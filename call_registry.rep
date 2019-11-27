@@ -28,7 +28,7 @@ bool factor_carrega();
 
 // Funcio que realitza un augment del tamany
 // de la _tala per fer Redispersió
-void redispersio() const throw(){
+/*void redispersio() const throw(){
   node_hash **nova_taula = new node_hash*[_size*2];
 
   for(int i = 0; i < _taula; i++){
@@ -39,4 +39,4 @@ void redispersio() const throw(){
 
     }
   }
-}
+}*/
