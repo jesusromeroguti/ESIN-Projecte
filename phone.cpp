@@ -74,25 +74,18 @@ bool phone::operator<(const phone& T) const throw(){
 }
 
 bool phone::operator<=(const phone& T) const throw(){
-  if(_compt <= T._compt) return true;
+  if(_compt < T._compt) return true;
   else if(_compt == T._compt){
-    if(_name <= T._name) return true;
+    return _name <= T._name;
   } else return false;
 }
 
-// bool phone::operator>=(const phone& T) const throw(){
-//   if(_compt >= T._compt) return true;
-//   else if(_compt == T._compt){
-//     if(_name >= T._name) return true;
-//   } else return false;
-// }
-
 
 bool phone::operator>=(const phone& T) const throw(){
-  if(_compt >= T._compt) return true;
+  if(_compt > T._compt) return true;
   else if(_compt == T._compt){
     return _name >= T._name;
-  }
+  } else return false;
 }
 
 // Preguntar si a igual frequencia es true o si han de ser name iguals
