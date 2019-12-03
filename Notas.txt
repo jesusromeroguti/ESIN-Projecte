@@ -4,11 +4,9 @@ Dudas, notas, cosas que hacer/acabar:
   - Esta ben fet el constructor per copia? (amb swap i sense delete)
 
 --Cosas que hacer:
-  - Arreglar els operadors de >= i <= per passat els jocs de prova. (PRIORITAT) 
-  - Funcio dump
+  - (REVISAR) Funcio dump. --> A veces va a veces no.
   - Afegir dispersio
-  - Mirar si estan ben fetes les excepcions
-  - Trobar una bona funcio de dispersio
+  - Trobar una bona funcio de hash
 
 -- Redispersió:
   - Factor de carrega = nº actual elements / tamany _taula
@@ -25,7 +23,7 @@ Dudas, notas, cosas que hacer/acabar:
   - Ampliats els jocs de proba.
   - Operador=
   - Funcio auxiliar swap per implementar l'operador =
-
+  - Arreglats errors dels operadors <= i >=
 
 - Cosas que m'ha dit el jordi:
   - El cost amb la funcio de redisperio no es problema perque de n crides (on n es gran)

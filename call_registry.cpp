@@ -162,7 +162,7 @@ nat call_registry::num_entrades() const throw(){
 
 void call_registry::dump(vector<phone>& V) const throw(error){
   // V.resize(_quants);
-  cout << "hol1" << endl;
+  // cout << "hol1" << endl;
   // boolea que indica si hi ha dos noms repetits
   bool iguals = false;
   // Fem el volcat dels phones
@@ -170,13 +170,15 @@ void call_registry::dump(vector<phone>& V) const throw(error){
     node_hash *p = _taula[i];
     while(p != NULL){
       // V[i] = p->_tel;
-      V.push_back(p->_tel);
+      if(p->_tel.nom() != ""){
+        V.push_back(p->_tel);
+      }
       p = p->seg;
     }
   }
 
   for(int x = 0; x < V.size(); x++){
-    cout << V[x].nom() << endl;
+    // cout << V[x].nom() << endl;
   }
 
   // Mirar si hi han noms repetits
@@ -189,7 +191,7 @@ void call_registry::dump(vector<phone>& V) const throw(error){
       }
     }
   }
-  cout << "iguals es: " <<iguals << endl;
+  // cout << "iguals es: " <<iguals << endl;
 
 }
 
