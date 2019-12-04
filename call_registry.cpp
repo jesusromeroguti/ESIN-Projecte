@@ -160,6 +160,8 @@ nat call_registry::num_entrades() const throw(){
   return _quants;
 }
 
+
+// Revisar ordenació mes eficient (quicksort, mergesort)
 void call_registry::dump(vector<phone>& V) const throw(error){
   // V.resize(_quants);
   // cout << "hol1" << endl;
@@ -177,21 +179,17 @@ void call_registry::dump(vector<phone>& V) const throw(error){
     }
   }
 
-  for(int x = 0; x < V.size(); x++){
-    // cout << V[x].nom() << endl;
-  }
-
   // Mirar si hi han noms repetits
   for(int j = 0; j <V.size(); j++){
     string name = V[j].nom();
     for(int k = j + 1; k < V.size(); k++){
-      if(V[j] == V[k]){
-        iguals = true;
+      // Comprarar noms no phones
+      if(V[j].nom() == V[k].nom()){
+        // iguals = true;
         throw error(ErrNomRepetit);
       }
     }
   }
-  // cout << "iguals es: " <<iguals << endl;
 
 }
 
