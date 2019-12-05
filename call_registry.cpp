@@ -1,5 +1,7 @@
 #include "call_registry.hpp"
 
+//#DEFINE FACTOR_CARREGA 0.9
+
 // Cost lineal
 call_registry::call_registry() throw(error): _quants(0){
   _size = 50;
@@ -203,8 +205,10 @@ nat call_registry::funcio_hash(nat x) const throw(){
     //   suma += y;
     // }
     // return suma % _size;
-    nat i = x % _size;
-    return i;
+    // nat i = x % _size;
+    // return i;
+
+    return util::hash(x) % _size;
 }
 
 call_registry::node_hash* call_registry::pos_element(nat num) const throw(){
