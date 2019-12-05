@@ -67,6 +67,7 @@ call_registry::~call_registry() throw(){
     }
   }
   // eliminem la _taula
+  _quants = 0;
   delete[] _taula;
 }
 
