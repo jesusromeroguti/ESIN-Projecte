@@ -6,6 +6,28 @@ using namespace std;
 using util::nat;
 
 int main(){
+
+
+  call_registry c102;
+  c102.registra_trucada(101);
+  c102.registra_trucada(102);
+  c102.registra_trucada(103);
+  c102.registra_trucada(104);
+  c102.registra_trucada(105);
+  c102.registra_trucada(106);
+  c102.registra_trucada(107);
+  c102.registra_trucada(108);
+  c102.registra_trucada(109);
+  c102.registra_trucada(110);
+  c102.registra_trucada(111);
+  c102.registra_trucada(112);
+  c102.registra_trucada(113);
+  c102.registra_trucada(114);
+  c102.registra_trucada(115);
+
+
+
+/*
   call_registry c;
   bool a = c.es_buit();
   cout << a << endl;
@@ -86,5 +108,5 @@ int main(){
   cout << reg.nom(123456789) << endl;
   cout << reg.nom(626468480) << endl;
   bool reg_conte = reg.conte(123456789);
-  cout << reg_conte << endl;
+  cout << reg_conte << endl;*/
 }

@@ -1,6 +1,6 @@
 #include "call_registry.hpp"
 
-//#DEFINE FACTOR_CARREGA 0.9
+#define FACTOR_CARREGA .9
 
 // Cost lineal
 call_registry::call_registry() throw(error): _quants(0){
@@ -85,6 +85,9 @@ void call_registry::registra_trucada(nat num) throw(error){
     // Creu el nou node a la _taula
     _taula[i] = new node_hash(num,t,_taula[i]);
     ++_quants;
+    // Si el factor_carrega > 90% es realitza redispersio a la taula
+    factor_carrega();
+    // cout << _quants << endl;
   }
 }
 
@@ -99,6 +102,8 @@ void call_registry::assigna_nom(nat num, const string& name) throw(error){
     phone t(num, name, 0);
     _taula[i] = new node_hash(num, t, _taula[i]);
     ++_quants;
+    // Si el factor_carrega > 90% es realitza redispersio a la taula
+    factor_carrega();
   }
 }
 
@@ -197,17 +202,6 @@ void call_registry::dump(vector<phone>& V) const throw(error){
 call_registry::node_hash::node_hash(const nat &k, const phone &tel, node_hash *seg) throw(error) : _k(k), _tel(tel), seg(seg){}
 
 nat call_registry::funcio_hash(nat x) const throw(){
-    // nat suma = 0;
-    // int y;
-    // while(x > 0){
-    //   y = x % 1000;
-    //   x = x / 1000;
-    //   suma += y;
-    // }
-    // return suma % _size;
-    // nat i = x % _size;
-    // return i;
-
     return util::hash(x) % _size;
 }
 
@@ -239,11 +233,31 @@ void call_registry::swap(call_registry &R) throw(){
 // Constructor per defecte
 call_registry::node_hash::node_hash(){}
 
+void call_registry::redispersio(){
+  // nat mida_abans = _size;
+  nat mida_abans = _size;
+  _size = _size * 2 + 1;
+  node_hash **nova_taula = new node_hash*[_size]();
+
+  for(int i = 0; i < mida_abans; i++){
+    node_hash *p = _taula[i];
+    while(p != NULL){
+      node_hash *aux = p;
+      p = p->seg;
+      node_hash *&nou = nova_taula[funcio_hash(aux->_k)];
+      aux->seg = nou;
+      nou = aux;
+    }
+  }
+  // eliminem la _taula
+  delete[] _taula;
+  _taula = nova_taula;
+}
+
 // Funcio per saber si es sobrepasa el factor de carrega
-bool call_registry::factor_carrega(){
-  bool superior = false;
-  float carrega = _quants / _size;
-  if(carrega > 0.75) superior = true;
-  else superior = false;
-  return superior;
+void call_registry::factor_carrega(){
+  float f = static_cast<float>(_quants) / static_cast<float>(_size);
+  if(f >= FACTOR_CARREGA){
+    redispersio();
+  }
 }

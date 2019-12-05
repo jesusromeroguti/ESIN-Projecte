@@ -1,12 +1,15 @@
 Dudas, notas, cosas que hacer/acabar:
 --Dudas:
-  - Utilitzar una funcio privada per fer la cerca.
-  - Esta ben fet el constructor per copia? (amb swap i sense delete)
+  - Preguntar a jordi redispersio.
+  - Preguntar diff jocs de proves de call_registry
 
 --Cosas que hacer:
-  - (REVISAR) Funcio dump. --> A veces va a veces no.
-  - Afegir dispersio
-  - Trobar una bona funcio de hash
+  - Comentar totes les funcions amb:
+      - Pre/Post
+      - Cost
+  - Millorar eficiencia funcio dump.
+  - Redispersio --> Pasa a dudas.
+  - Començar Easy-dial
 
 -- Redispersió:
     !! La hashtable encadenament indirecte no es molt sensible al factor de factor_carrega
@@ -26,6 +29,9 @@ Dudas, notas, cosas que hacer/acabar:
   - Operador=
   - Funcio auxiliar swap per implementar l'operador =
   - Arreglats errors dels operadors <= i >=
+  - Funcio de redispersio
+  - Funcio factor_carrega
+  - Ens quedem amb la funcio de hash actual
 
 - Cosas que m'ha dit el jordi:
   - El cost amb la funcio de redisperio no es problema perque de n crides (on n es gran)

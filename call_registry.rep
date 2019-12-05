@@ -22,12 +22,14 @@ node_hash* pos_element(nat num) const throw();
 void swap(call_registry& R) throw();
 
 // Funcio que calcula el factor de carrega.
-// Retorna cert si i nomes si el factor de carrgea es
-// superior a 0.75
-bool factor_carrega();
+// Si el factor > 90 % es fa un redispersio
+void factor_carrega();
 
 // Funcio que realitza un augment del tamany
 // de la _tala per fer Redispersió
+void redispersio();
+
+// Versio 1 Redispersio
 /*void redispersio() const throw(){
   node_hash **nova_taula = new node_hash*[_size*2];
 
@@ -63,4 +65,5 @@ bool factor_carrega();
   // eliminem la _taula
   delete[] _taula;
   _taula = nova_taula;
-}*/
+}
+*/
