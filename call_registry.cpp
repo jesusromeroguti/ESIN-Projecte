@@ -163,8 +163,6 @@ nat call_registry::num_entrades() const throw(){
 
 // Revisar ordenació mes eficient (quicksort, mergesort)
 void call_registry::dump(vector<phone>& V) const throw(error){
-  // V.resize(_quants);
-  // cout << "hol1" << endl;
   // boolea que indica si hi ha dos noms repetits
   bool iguals = false;
   // Fem el volcat dels phones

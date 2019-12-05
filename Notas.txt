@@ -9,6 +9,8 @@ Dudas, notas, cosas que hacer/acabar:
   - Trobar una bona funcio de hash
 
 -- Redispersió:
+    !! La hashtable encadenament indirecte no es molt sensible al factor de factor_carrega
+       aguanta be un 90 - 100% !!
   - Factor de carrega = nº actual elements / tamany _taula
    ----> factor_carrega = _quants / _size
   - Si factor de carrega > 0.75 --> Redispersió
