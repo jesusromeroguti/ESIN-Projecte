@@ -49,3 +49,9 @@ Dudas, notas, cosas que hacer/acabar:
   * En comptes de crear nous nodes i afegirlos a la nova taula es pot apuntar els ja existents
     a la taula nova. Aixi ens estalviem moltes creacions de nodes i haber de esborrar node per node
     la taula de nodes antiga.
+
+  - Notas sobre easy-dial:
+    - Pot ser un trie es una bona opció
+    - Hem d'escollir prim-seggerm o tst (arbre ternari de cerca)
+    - El constructor construeix la estructura (arbre(trie per exemple)) a partir del call_registry
+      D'aquesta manera despres es poden fer cerces amb prefixos.
