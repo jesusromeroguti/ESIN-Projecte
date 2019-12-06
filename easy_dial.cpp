@@ -1,6 +1,9 @@
 #include "easy_dial.hpp"
 
-easy_dial::easy_dial(const call_registry& R) throw(error){}
+easy_dial::easy_dial(const call_registry& R) throw(error){
+  _prefix = "";
+  crea_tst(R);
+}
 
 /* Tres grans. Constructor per còpia, operador d'assignació i destructor. */
 easy_dial::easy_dial(const easy_dial& D) throw(error){}
@@ -20,7 +23,12 @@ Si no existeix F(S, p) (i per tant tampoc pot existir F(S, p'))
 llavors es produeix un error i el prefix en curs queda indefinit.
 Naturalment, es produeix un error si el prefix en curs inicial p
 fos indefinit. */
-string easy_dial::seguent(char c) throw(error){}
+string easy_dial::seguent(char c) throw(error){
+  if ( c != "\0" ) {
+  	_prefix = _prefix + c;
+  }
+  else throw(phone::ENDPREF);
+}
 
 /* Elimina l'últim caràcter del prefix en curs p = p' · a
 (a és el caràcter eliminat). Retorna el nom F(S, p')
@@ -49,3 +57,91 @@ per tots els telèfons s del conjunt X, sent Pr(s) la probabilitat de
 telefonar a s. La probabilitat s'obté dividint la freqüència de s per
 la suma de totes les freqüències. */
 double easy_dial::longitud_mitjana() const throw(){}
+
+
+//Funció que crea el tst amb tots els registres
+void crea_tst(const call_registry& R) throw(error){}
+
+//Funció que insereix la string al easy_dial
+void insereix(const string& s) throw(error){}
+
+//Funció que insereix cada caràcter de la string a els nodes del tst
+void insereix_r(node_tst *n, nat pos, string s, bool& repetit){}
+
+
+
+
+
+//.rep
+//Opcions tst, Tries
+struct node_tst {
+  char _valor;
+  node_tst* _esq;
+  node_tst* _dret;
+  node_tst* _cen;
+};
+node_tst *_arrel;
+string _prefix;
+
+//Funció que crea el tst amb tots els registres
+void crea_tst(const call_registry& R) throw(error);
+
+//Funció que insereix la string al easy_dial
+void insereix(const string& s) throw(error);
+
+//Funció que insereix cada caràcter de la string a els nodes del tst
+void insereix_r(node_tst *n, nat pos, string s, bool& repetit);
+
+
+
+
+//////////////
+void diccionari::insereix(const string& p) throw(error) {
+  /**
+   * Pre:  Cert.
+   * Post: Afegeix la paraula p al diccionari; si la paraula p ja formava
+   *       part del diccionari, l'operació no té cap efecte.
+   * Cost: O(l*log s) sent l la longitud mitja i s el numero promig de simbols.
+  */
+  string s = p + _especial; //--> \0
+  bool repetit = false;
+  _arrel = insereix(_arrel, 0, s, repetit);
+  if (!repetit) _n_paraules++;
+}
+
+//////////////
+typename diccionari::node* diccionari::insereix(node *n, nat posicio, string s, bool& repetit) {
+  /**
+   * Pre:  Cert.
+   * Post: Afegeix la lletra del string s allotjada a la posicio del nat posicio.
+   * Cost: O(l*log s) sent l el número de simbols que hem queden per visitar i s el número
+   *       promig de simbols.
+  */
+  if (n == NULL) {
+    if (posicio > s.length()-1) {
+      repetit = true;
+    } else {
+      try {
+        n = new node;
+        n->esq = n->dret = n->cent = NULL;
+        n->valor = s[posicio];
+        if (posicio < s.length()-1) {
+          n->cent = insereix(n->cent, posicio+1, s, repetit);
+        }
+      }
+      catch (...) {
+        delete n;
+        throw;
+      }
+    }
+  } else {
+    if (n->valor > s[posicio]) {
+        n->esq = insereix(n->esq, posicio, s, repetit);
+      } else if (n->valor < s[posicio]) {
+        n->dret = insereix(n->dret, posicio, s, repetit);
+    } else {   // (n->valor == s[posicio])
+      n->cent = insereix(n->cent, posicio+1, s, repetit);
+    }
+  }
+  return n;
+}

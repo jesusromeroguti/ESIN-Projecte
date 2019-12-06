@@ -1,0 +1,10 @@
+//Opcions tst, Tries
+struct node_tst {
+  char _valor;
+  node_tst* _esq;
+  node_tst* _dret;
+  node_tst* _cen;
+
+};
+node_tst *_arrel;
+string _prefix;
