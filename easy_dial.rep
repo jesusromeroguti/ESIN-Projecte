@@ -6,5 +6,11 @@ struct node_tst {
   node_tst* _cen;
 
 };
-node_tst *_arrel;
+node_tst *_arrel = NULL;
 string _prefix;
+
+// Funcio recursiva per inserir cada caracter d'un nom de telefon al trie
+static node_tst* insereix_r(node_tst *n, nat i, string s);
+
+// Funcio que inserex un nom de telefon al trie
+void insereix(const string &n) throw(error);
