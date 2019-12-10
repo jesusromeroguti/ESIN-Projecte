@@ -171,8 +171,6 @@ nat call_registry::num_entrades() const throw(){
 
 // Revisar ordenació mes eficient (quicksort, mergesort)
 void call_registry::dump(vector<phone>& V) const throw(error){
-  // boolea que indica si hi ha dos noms repetits
-  bool iguals = false;
   // Fem el volcat dels phones
   for(int i = 0; i < _size; i++){
     node_hash *p = _taula[i];
@@ -191,7 +189,6 @@ void call_registry::dump(vector<phone>& V) const throw(error){
     for(int k = j + 1; k < V.size(); k++){
       // Comprarar noms no phones
       if(V[j].nom() == V[k].nom()){
-        // iguals = true;
         throw error(ErrNomRepetit);
       }
     }

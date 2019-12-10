@@ -14,3 +14,6 @@ static node_tst* insereix_r(node_tst *n, nat i, string s);
 
 // Funcio que inserex un nom de telefon al trie
 void insereix(const string &n) throw(error);
+
+// Funció que elimina els nodes del easy_dial
+void esborra(node_tst *n);

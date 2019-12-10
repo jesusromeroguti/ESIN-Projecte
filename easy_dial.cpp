@@ -14,9 +14,20 @@ easy_dial::easy_dial(const call_registry& R) throw(error){
 }
 
 /* Tres grans. Constructor per còpia, operador d'assignació i destructor. */
-easy_dial::easy_dial(const easy_dial& D) throw(error){}
+easy_dial::easy_dial(const easy_dial& D) throw(error){
+  _prefix = D._prefix;
+  if (D._arrel != NULL) {
+    esborra(D._arrel);
+  }
+  for(int i = 0; i < D.v.size(); ++i) {
+    insereix(D.v[i].nom);
+  }
+}
 easy_dial& easy_dial::operator=(const easy_dial& D) throw(error){}
-easy_dial::~easy_dial() throw(){}
+easy_dial::~easy_dial() throw(){
+  _prefix = "";
+  esborra(D._arrel);
+}
 
 /* Inicialitza el prefix en curs a buit. Retorna el nom de F(S, '');
 si F (S, '') no existeix llavors retorna l'string buit. */
@@ -100,4 +111,19 @@ void easy_dial::insereix(const string &n) throw(error){
   string s = n + phone::ENDPREF;
   cout << "hola" << endl;
   _arrel = insereix_r(_arrel,0, s);
+}
+
+void easy_dial::esborra(node_tst *n) {
+  if(n->_esq != NULL) {
+    esborra(n->_esq);
+  }
+  else if (n->_dret != NULL) {
+    esborra(n->_dret);
+  }
+  else if (n->_cen != NULL) {
+    esborra(n->_cen);
+  }
+  else {
+    delete n;
+  }
 }
