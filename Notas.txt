@@ -7,7 +7,7 @@ Dudas, notas, cosas que hacer/acabar:
   - Comentar totes les funcions amb:
       - Pre/Post
       - Cost
-  - Millorar eficiencia funcio dump.
+  - Millorar eficiencia funcio dump. Comparar el amb l'anterior o el seguent, ordenar el vector (quicksort, mergesort)
   - Redispersio --> Pasa a dudas.
   - Començar Easy-dial
 

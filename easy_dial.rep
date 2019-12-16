@@ -1,6 +1,15 @@
 //Opcions tst, Tries
+
+// Solució escollida:
+// Guardar un index (nat _x) a cada node per saber on es troba aquest nom en el vector de phones
+// Nomes el node \0 te un index valid els dames _x = -1
+// Aprofitar el vector generat de dump per guardar tota la informació dels telefons
+// Podem utilitzar la funció "comencen" per obtenir tots els noms que comencen per un prefix donat
+// Per ultim una vegada tens tots els noms i la posicio al vector compares les seves frequencies
+
 struct node_tst {
   char _valor;
+  nat _x;          // index on es troba el phone al vector de phones.
   node_tst* _esq;
   node_tst* _dret;
   node_tst* _cen;
@@ -8,6 +17,7 @@ struct node_tst {
 };
 node_tst *_arrel = NULL;
 string _prefix;
+vector<phone> phones; // vector de phones amb tota la seva informació.
 
 // Funcio recursiva per inserir cada caracter d'un nom de telefon al trie
 static node_tst* insereix_r(node_tst *n, nat i, string s);

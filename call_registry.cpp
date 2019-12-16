@@ -170,6 +170,7 @@ nat call_registry::num_entrades() const throw(){
 
 
 // Revisar ordenació mes eficient (quicksort, mergesort)
+// Ordenar el vector i comparar amb l'anterior o el seguent.
 void call_registry::dump(vector<phone>& V) const throw(error){
   // Fem el volcat dels phones
   for(int i = 0; i < _size; i++){

@@ -1,14 +1,16 @@
 #include "easy_dial.hpp"
 
+// Afegir els noms per ordre de frequencia
 easy_dial::easy_dial(const call_registry& R) throw(error){
   // El prefix al construir el easy_dial es indefinit
   _prefix = "";
   vector<phone> v;
   R.dump(v);
+  // for(int i = 0; i < v.size(); i++){
+  //   cout << v[i].nom() << endl;
+  // }
   for(int i = 0; i < v.size(); i++){
-    cout << v[i].nom() << endl;
-  }
-  for(int i = 0; i < v.size(); i++){
+    // insereix(v[i].nom(), i);
     insereix(v[i].nom());
   }
 }
@@ -23,7 +25,9 @@ easy_dial::easy_dial(const easy_dial& D) throw(error){
     insereix(D.v[i].nom);
   }
 }
+
 easy_dial& easy_dial::operator=(const easy_dial& D) throw(error){}
+
 easy_dial::~easy_dial() throw(){
   _prefix = "";
   esborra(D._arrel);
@@ -75,27 +79,31 @@ obtenir el telèfon el nom del qual és s. La funció retorna la suma
 per tots els telèfons s del conjunt X, sent Pr(s) la probabilitat de
 telefonar a s. La probabilitat s'obté dividint la freqüència de s per
 la suma de totes les freqüències. */
-double easy_dial::longitud_mitjana() const throw(){}
+double easy_dial::longitud_mitjana() const throw(){
+  // A l'hora de construir podem afegir el numero de pulsacions
+  // necessaries per que aparegui el nom del telefon
+}
 
 typename easy_dial::node_tst* easy_dial::insereix_r(node_tst *n, nat i, string s){
   if(n == NULL){
-    cout << "hola2"<< endl;
+    // cout << "hola2"<< endl;
     n = new node_tst;
     n->_esq = n->_dret = n->_cen = NULL;
     n->_valor = s[i];
     try{
       if(i < s.length()-1){
-        cout << "hola3" << endl;
+        // cout << "hola3" << endl;
         n->_cen = insereix_r(n->_cen, i+1, s);
       } else { // i == s.length-1 --> s[i] == ENDPREF
         n->_valor = s[i];
+        // n->_x = x;      // Si es el node que conte \0 llavors posem la posicio del vector
       }
     } catch (...){
       delete n;
       throw;
     }
   } else {
-    cout << "hola4" << endl;
+    // cout << "hola4" << endl;
     if(n->_valor > s[i]){
       n->_esq = insereix_r(n->_esq, i, s);
     } else if(n->_valor < s[i]){
@@ -109,7 +117,7 @@ typename easy_dial::node_tst* easy_dial::insereix_r(node_tst *n, nat i, string s
 
 void easy_dial::insereix(const string &n) throw(error){
   string s = n + phone::ENDPREF;
-  cout << "hola" << endl;
+  // cout << "hola" << endl;
   _arrel = insereix_r(_arrel,0, s);
 }
 
