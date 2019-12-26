@@ -194,7 +194,6 @@ void call_registry::dump(vector<phone>& V) const throw(error){
       }
     }
   }
-
 }
 
 call_registry::node_hash::node_hash(const nat &k, const phone &tel, node_hash *seg) throw(error) : _k(k), _tel(tel), seg(seg){}

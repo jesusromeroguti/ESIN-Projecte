@@ -18,7 +18,7 @@ Dudas, notas, cosas que hacer/acabar:
    ----> factor_carrega = _quants / _size
   - Si factor de carrega > 0.75 --> Redispersió
 
--- Funcions implementades noves:
+-- Funcions implementades noves call_registry:
   - Constructor per copia
   - Destructor
   - Actualitzats metodes amb la funcio pos_element
@@ -51,7 +51,5 @@ Dudas, notas, cosas que hacer/acabar:
     la taula de nodes antiga.
 
   - Notas sobre easy-dial:
-    - Pot ser un trie es una bona opció
-    - Hem d'escollir prim-seggerm o tst (arbre ternari de cerca)
-    - El constructor construeix la estructura (arbre(trie per exemple)) a partir del call_registry
-      D'aquesta manera despres es poden fer cerces amb prefixos.
+    - Modificar el constructor per afegir l'enter de posicio del vector --> Hecho
+    - Funcio consulta per fer cerques per prefix

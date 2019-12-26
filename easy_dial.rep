@@ -9,21 +9,24 @@
 
 struct node_tst {
   char _valor;
-  nat _x;          // index on es troba el phone al vector de phones.
+  int _x;          // index on es troba el phone al vector de phones.
   node_tst* _esq;
   node_tst* _dret;
   node_tst* _cen;
 
 };
 node_tst *_arrel = NULL;
-string _prefix;
-vector<phone> phones; // vector de phones amb tota la seva informació.
+string _prefix; // No l'inicialitzem perque ha de ser indefinit.
+vector<phone> _phones; // vector de phones amb tota la seva informació.
 
 // Funcio recursiva per inserir cada caracter d'un nom de telefon al trie
-static node_tst* insereix_r(node_tst *n, nat i, string s);
+static node_tst* insereix_r(node_tst *n, nat i, string s, int x);
 
 // Funcio que inserex un nom de telefon al trie
-void insereix(const string &n) throw(error);
+void insereix(const string &n, int x) throw(error);
+
+// Funcio recursiva que fa cerques a partir d'un prefix donat
+node_tst* consulta_r(node_tst *n, nat i, const string& prefix, vector<string>& p) const;
 
 // Funció que elimina els nodes del easy_dial
 void esborra(node_tst *n);

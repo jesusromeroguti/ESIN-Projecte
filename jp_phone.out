@@ -1,5 +1,5 @@
 ###!----------------------------------------------
-###!                                              
+###!
 ###! CLASSE PHONE
 ###!
 ###!----------------------------------------------
@@ -43,8 +43,8 @@ Error::phone:11:Nom incorrecte.
 ##0
 #init t2 phone 00 " "
 #nom
- 
-## 
+
+##
 #numero
 0
 ##0
@@ -61,7 +61,7 @@ Error::phone:11:Nom incorrecte.
 #frequencia
 0
 ##0
-#init tel3 phone 456 "construye" 
+#init tel3 phone 456 "construye"
 #numero
 456
 ##456
@@ -100,7 +100,7 @@ construir
 0
 ##0
 #init tel9 phone 456 "construye"
-#initcopy tel10 = tel9 
+#initcopy tel10 = tel9
 #tel10 numero
 456
 ##456
@@ -118,7 +118,7 @@ construye
 #tel12 nom
 construir
 ##construir
-#tel12 frequencia 
+#tel12 frequencia
 45
 ##45
 ###!
@@ -142,7 +142,7 @@ construir
 ##0
 #init tel24 phone 488 "const"
 #init tel26 phone 456 "construye"
-#tel24 = tel26 
+#tel24 = tel26
 #tel24 numero
 456
 ##456
@@ -161,7 +161,7 @@ construye
 #tel26 nom
 construir
 ##construir
-#tel26 frequencia 
+#tel26 frequencia
 45
 ##45
 ###!
@@ -172,30 +172,30 @@ construir
 ###!----------------------------------------------
 ###!
 #init tel40 phone 456 "nom1" 40
-#tel40 ++ 
+#tel40 ++
 456 nom1 41
 ##456 nom1 41
-#frequencia 
+#frequencia
 41
 ##41
 #tel40 ++
 456 nom1 42
 ##456 nom1 42
-#frequencia 
+#frequencia
 42
 ##42
 #tel40 ++
 456 nom1 43
 ##456 nom1 43
-#frequencia 
+#frequencia
 43
 ##43
 ###!
 #init tel140 phone 456 "nom1" 140
-#frequencia 
+#frequencia
 140
 ##140
-#tel140 post_incr 
+#tel140 post_incr
 456 nom1 140
 ##456 nom1 140
 #frequencia
@@ -204,13 +204,13 @@ construir
 #tel140 post_incr
 456 nom1 141
 ##456 nom1 141
-#frequencia 
+#frequencia
 142
 ##142
 #tel140 post_incr
 456 nom1 142
 ##456 nom1 142
-#frequencia 
+#frequencia
 143
 ##143
 ###!
