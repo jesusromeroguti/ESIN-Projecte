@@ -30,3 +30,6 @@ node_tst* consulta_r(node_tst *n, nat i, const string& prefix, vector<string>& p
 
 // Funció que elimina els nodes del easy_dial
 void esborra(node_tst *n);
+
+
+void mostrar_trie(node_tst *n, vector<string>& p) const;

@@ -8,8 +8,7 @@ Dudas, notas, cosas que hacer/acabar:
       - Pre/Post
       - Cost
   - Millorar eficiencia funcio dump. Comparar el amb l'anterior o el seguent, ordenar el vector (quicksort, mergesort)
-  - Redispersio --> Pasa a dudas.
-  - Començar Easy-dial
+
 
 -- Redispersió:
     !! La hashtable encadenament indirecte no es molt sensible al factor de factor_carrega
@@ -51,5 +50,5 @@ Dudas, notas, cosas que hacer/acabar:
     la taula de nodes antiga.
 
   - Notas sobre easy-dial:
-    - Modificar el constructor per afegir l'enter de posicio del vector --> Hecho
-    - Funcio consulta per fer cerques per prefix
+    - Modificar el constructor per afegir l'enter de posicio del vector --> HECHO
+    - Creada funcio per trobar tots els noms que comencen per un prefix donat --> HECHO

@@ -172,13 +172,21 @@ nat call_registry::num_entrades() const throw(){
 // Revisar ordenació mes eficient (quicksort, mergesort)
 // Ordenar el vector i comparar amb l'anterior o el seguent.
 void call_registry::dump(vector<phone>& V) const throw(error){
+  int max = 0;
+  vector<phone>::iterator it;
   // Fem el volcat dels phones
   for(int i = 0; i < _size; i++){
     node_hash *p = _taula[i];
     while(p != NULL){
       // V[i] = p->_tel;
       if(p->_tel.nom() != ""){
-        V.push_back(p->_tel);
+        it = V.begin();
+        if(p->_tel.frequencia() >= max){
+          max = p->_tel.frequencia();
+          V.insert(it, p->_tel);
+        } else {
+          V.push_back(p->_tel);
+        }
       }
       p = p->seg;
     }
@@ -258,3 +266,31 @@ void call_registry::factor_carrega(){
     redispersio();
   }
 }
+/*
+//Versio final sense ordenar
+// Revisar ordenació mes eficient (quicksort, mergesort)
+// Ordenar el vector i comparar amb l'anterior o el seguent.
+void call_registry::dump(vector<phone>& V) const throw(error){
+  // Fem el volcat dels phones
+  for(int i = 0; i < _size; i++){
+    node_hash *p = _taula[i];
+    while(p != NULL){
+      // V[i] = p->_tel;
+      if(p->_tel.nom() != ""){
+        V.push_back(p->_tel);
+      }
+      p = p->seg;
+    }
+  }
+
+  // Mirar si hi han noms repetits
+  for(int j = 0; j <V.size(); j++){
+    string name = V[j].nom();
+    for(int k = j + 1; k < V.size(); k++){
+      // Comprarar noms no phones
+      if(V[j].nom() == V[k].nom()){
+        throw error(ErrNomRepetit);
+      }
+    }
+  }
+}*/

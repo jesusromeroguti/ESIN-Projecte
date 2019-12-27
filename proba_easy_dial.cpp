@@ -9,6 +9,8 @@ int main(){
   call_registry c;
   c.assigna_nom(123, "alex");
   c.assigna_nom(321, "Marta");
+  c.registra_trucada(321);
+  c.registra_trucada(321);
   c.assigna_nom(983, "Maria");
   c.assigna_nom(789, "Mara");
   c.assigna_nom(777, "Mas");
@@ -17,13 +19,19 @@ int main(){
   c.assigna_nom(666, "Maru");
   c.assigna_nom(555, "M");
   c.assigna_nom(333, "Jesus");
+  c.assigna_nom(222, "Jose");
+  c.assigna_nom(111, "Jes");
 
   easy_dial e(c);
   vector<string> v;
   cout << v.size() << endl;
-  e.comencen("Pablo", v);
+  e.comencen("Mariz", v);
   cout << v.size() << endl;
   for(int i = 0; i < v.size(); i++){
     cout << v[i] << endl;
   }
+
+  cout << "----------------------" << endl;
+
+  cout << e.inici() <<endl;
 }

@@ -32,7 +32,14 @@ easy_dial::~easy_dial() throw(){
 
 /* Inicialitza el prefix en curs a buit. Retorna el nom de F(S, '');
 si F (S, '') no existeix llavors retorna l'string buit. */
-string easy_dial::inici() throw(){}
+string easy_dial::inici() throw(){
+  string res;
+  _prefix = "";
+  if(_prefix == ""){
+    res = _phones[0].nom();
+  }
+  return res;
+}
 
 /* Retorna el nom de F(S, p') on p' és el prefix resultant d'afegir
 el caràcter c al final del prefix en curs p i
@@ -66,11 +73,14 @@ nat easy_dial::num_telf() const throw(error){}
 /* Retorna en el vector result tots els noms dels contactes de
 telèfon que comencen amb el prefix pref, en ordre lexicogràfic creixent. */
 void easy_dial::comencen(const string& pref, vector<string>& result) const throw(error){
-  for(int i = 0; i< _phones.size(); i++){
-    cout << _phones[i].nom() << endl;
-  }
-  cout << " ---------------------- " << endl;
-  node_tst *res = consulta_r(_arrel, 0, pref, result);
+  // for(int i = 0; i< _phones.size(); i++){
+  //   cout << _phones[i].nom() << endl;
+  // }
+  // cout << " ---------------------- " << endl;
+  // node_tst *res = consulta_r(_arrel, 0, pref, result);
+
+  // Falta ordenar els noms en ordre lexicogràfic creixent
+  node_tst *l = consulta_r(_arrel, 0, pref, result);
 
 }
 
@@ -125,15 +135,23 @@ void easy_dial::insereix(const string &n, int x) throw(error){
   _arrel = insereix_r(_arrel,0, s, x);
 }
 
+void easy_dial::mostrar_trie(node_tst *n, vector<string> &p) const{
+  if(n != NULL){
+    if(n->_valor == phone::ENDPREF){
+      // string res = _phones[n->_x].nom();
+      p.push_back(_phones[n->_x].nom());
+    }
+    mostrar_trie(n->_esq, p);
+    mostrar_trie(n->_dret, p);
+    mostrar_trie(n->_cen, p);
+  }
+}
 
 typename easy_dial::node_tst* easy_dial::consulta_r(node_tst *n, nat i, const string& prefix, vector<string>& p) const{
   // vector<phone> result;
   node_tst *res = NULL;
   if(n != NULL){
-    if(i < prefix.length()-1){
-      // if(n->_valor == phone::ENDPREF and i == prefix.length()){
-      //   p.push_back(_phones[n->_x].nom()); // Fico a res el nom
-      // }
+    if(i <= prefix.length()-1){
       if(n->_valor > prefix[i]){
         res = consulta_r(n->_esq, i, prefix, p);
       }
@@ -143,13 +161,9 @@ typename easy_dial::node_tst* easy_dial::consulta_r(node_tst *n, nat i, const st
       else if(n->_valor == prefix[i]){
         res = consulta_r(n->_cen, i+1, prefix, p);
       }
-    } else {
-      if(n->_valor == phone::ENDPREF){
-        p.push_back(_phones[n->_x].nom()); // Fico a res el nom
-      }
-      n->_esq = consulta_r(n->_esq, i, prefix, p);
-      n->_dret = consulta_r(n->_dret, i, prefix, p);
-      n->_cen = consulta_r(n->_cen, i, prefix, p);
+    } else { // i == prefix.length() - 1
+      res = n;
+      mostrar_trie(res, p);
     }
   }
   return res;
@@ -170,34 +184,3 @@ void easy_dial::esborra(node_tst *n) {
     delete n;
   }
 }
-
-
-
-/*typename easy_dial::node_tst* easy_dial::consulta_r(node_tst *n, nat i, const string& prefix, vector<string>& p) const{
-  // vector<phone> result;
-  node_tst *res = NULL;
-  if(n != NULL){
-    if(i < prefix.length()-1){
-      // if(n->_valor == phone::ENDPREF and i == prefix.length()){
-      //   p.push_back(_phones[n->_x].nom()); // Fico a res el nom
-      // }
-      else if(n->_valor > prefix[i]){
-        res = consulta_r(n->_esq, i, prefix, p);
-      }
-      else if(n->_valor < prefix[i]){
-        res = consulta_r(n->_dret, i, prefix, p);
-      }
-      else if(n->_valor == prefix[i]){
-        res = consulta_r(n->_cen, i+1, prefix, p);
-      }
-    } else {
-      if(n->_valor == phone::ENDPREF){
-        p.push_back(_phones[n->_x].nom()); // Fico a res el nom
-      }
-      n->_esq = consulta_r(n->_esq, i, prefix, p);
-      n->_dret = consulta_r(n->_dret, i, prefix, p);
-      n->_cen = consulta_r(n->_cen, i, prefix, p);
-    }
-  }
-  return res;
-}*/

@@ -9,21 +9,25 @@ int main(){
 
 
   call_registry c102;
-  c102.registra_trucada(101);
+  c102.assigna_nom(102, "I-102");
   c102.registra_trucada(102);
+  c102.assigna_nom(103, "I-103");
   c102.registra_trucada(103);
+  c102.assigna_nom(104, "I-104");
   c102.registra_trucada(104);
+  c102.assigna_nom(105, "I-105");
   c102.registra_trucada(105);
-  c102.registra_trucada(106);
-  c102.registra_trucada(107);
-  c102.registra_trucada(108);
-  c102.registra_trucada(109);
-  c102.registra_trucada(110);
-  c102.registra_trucada(111);
-  c102.registra_trucada(112);
-  c102.registra_trucada(113);
-  c102.registra_trucada(114);
-  c102.registra_trucada(115);
+  c102.assigna_nom(101, "I-101");
+  c102.registra_trucada(101);
+  c102.registra_trucada(101);
+  c102.registra_trucada(101);
+  c102.registra_trucada(101);
+
+  vector<phone> v;
+  c102.dump(v);
+  for(int i = 0; i < v.size(); i++){
+    cout << v[i].nom() << endl;
+  }
 
 
 
