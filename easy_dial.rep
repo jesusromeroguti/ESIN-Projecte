@@ -17,7 +17,10 @@ struct node_tst {
 };
 node_tst *_arrel = NULL;
 string _prefix; // No l'inicialitzem perque ha de ser indefinit.
+int pos; // Posicio del telefon amb mes frequencia que te el prefix actual
+bool indefinit; // Boolea que indica si el prefix esta indefinit
 vector<phone> _phones; // vector de phones amb tota la seva informació.
+vector<string> _historial; // Historial de resultats de la funcio seguent
 
 // Funcio recursiva per inserir cada caracter d'un nom de telefon al trie
 static node_tst* insereix_r(node_tst *n, nat i, string s, int x);
@@ -25,11 +28,16 @@ static node_tst* insereix_r(node_tst *n, nat i, string s, int x);
 // Funcio que inserex un nom de telefon al trie
 void insereix(const string &n, int x) throw(error);
 
-// Funcio recursiva que fa cerques a partir d'un prefix donat
-node_tst* consulta_r(node_tst *n, nat i, const string& prefix, vector<string>& p) const;
+// Funcio recursiva que fa una cerca del prefix donat dins del arbre
+// i fica en el vector de string tots els noms que comencen per prefix donat.
+node_tst* obte_noms(node_tst *n, nat i, const string& prefix, vector<string>& p) const;
+
+// Donat un node fica al vector de string totes les paraules dels subarbres del node.
+void obte_tots(node_tst *n, vector<string>& p) const;
 
 // Funció que elimina els nodes del easy_dial
 void esborra(node_tst *n);
 
+node_tst* obte_nom_max_freq(node_tst *n, nat i, const string& prefix, string &nom_resultat);
 
-void mostrar_trie(node_tst *n, vector<string>& p) const;
+void obte_nom_max_freq(node_tst *n, int &max_freq, string &nom_resultat);

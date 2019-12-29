@@ -3,7 +3,7 @@
 // Afegir els noms per ordre de frequencia
 easy_dial::easy_dial(const call_registry& R) throw(error){
   // El prefix al construir el easy_dial es indefinit
-  //_prefix = "";
+  indefinit = true;
   // vector<phone> v;
   R.dump(_phones);
   for(int i = 0; i < _phones.size(); i++){
@@ -26,18 +26,19 @@ easy_dial::easy_dial(const easy_dial& D) throw(error){
 easy_dial& easy_dial::operator=(const easy_dial& D) throw(error){}
 
 easy_dial::~easy_dial() throw(){
-  _prefix = "";
   esborra(_arrel);
 }
 
 /* Inicialitza el prefix en curs a buit. Retorna el nom de F(S, '');
 si F (S, '') no existeix llavors retorna l'string buit. */
 string easy_dial::inici() throw(){
-  string res;
+  string res = "";
   _prefix = "";
-  if(_prefix == ""){
+  indefinit = false;
+  // Si el vector esta buit easy_dial també per tant retornara el string buit.
+  if(_phones.size() != 0){
     res = _phones[0].nom();
-  }
+  } else pos = -1;
   return res;
 }
 
@@ -51,10 +52,24 @@ llavors es produeix un error i el prefix en curs queda indefinit.
 Naturalment, es produeix un error si el prefix en curs inicial p
 fos indefinit. */
 string easy_dial::seguent(char c) throw(error){
-  // if ( c != "\0" ) {
-  // 	_prefix = _prefix + c;
-  // }
-  // else throw(phone::ENDPREF);
+  cout << indefinit << endl;
+  if(indefinit) throw error(ErrPrefixIndef);
+  // if(_phones.size() != 0) indefinit = true;
+  // if(_prefix == "") throw error(ErrPrefixIndef);
+  cout << "_prefix: " <<_prefix << endl;
+  _prefix = _prefix + c;
+  cout << "_prefix: " <<_prefix << endl;
+  string nom_resultat = "";
+  node_tst *n = obte_nom_max_freq(_arrel, 0, _prefix, nom_resultat);
+  // Actualitzem _historial
+  if(nom_resultat != ""){
+    _historial.push_back(nom_resultat);
+    // cout << "nom_resultat: " << nom_resultat << endl;
+    for(int i = 0; i < _historial.size(); i++){
+      cout << _historial[i] << endl;
+    }
+  } else pos = -1;
+  return nom_resultat;
 }
 
 /* Elimina l'últim caràcter del prefix en curs p = p' · a
@@ -63,12 +78,21 @@ i fa que el nou prefix en curs sigui p'.
 Es produeix un error si p fos buida i si es fa que el prefix en curs
 quedi indefinit. Òbviament, també es produeix un error
 si p fos indefinit. */
-string easy_dial::anterior() throw(error){}
+string easy_dial::anterior() throw(error){
+  if(indefinit) throw error(ErrPrefixIndef);
+  string nom_resultat;
+  nom_resultat = _historial[_historial.size()-1];
+  return nom_resultat;
+}
 
 /* Retorna el número de telèfon de F(S, p), sent p
 el prefix en curs. Es produeix un error si p és indefinit o si
 no existeix F(S, p). */
-nat easy_dial::num_telf() const throw(error){}
+nat easy_dial::num_telf() const throw(error){
+  if(indefinit) throw error(ErrPrefixIndef);
+  if(pos == -1) throw error(ErrNoExisteixTelefon);
+  return _phones[pos].numero();
+}
 
 /* Retorna en el vector result tots els noms dels contactes de
 telèfon que comencen amb el prefix pref, en ordre lexicogràfic creixent. */
@@ -78,9 +102,8 @@ void easy_dial::comencen(const string& pref, vector<string>& result) const throw
   // }
   // cout << " ---------------------- " << endl;
   // node_tst *res = consulta_r(_arrel, 0, pref, result);
-
   // Falta ordenar els noms en ordre lexicogràfic creixent
-  node_tst *l = consulta_r(_arrel, 0, pref, result);
+  node_tst *l = obte_noms(_arrel, 0, pref, result);
 
 }
 
@@ -135,35 +158,85 @@ void easy_dial::insereix(const string &n, int x) throw(error){
   _arrel = insereix_r(_arrel,0, s, x);
 }
 
-void easy_dial::mostrar_trie(node_tst *n, vector<string> &p) const{
+void easy_dial::obte_tots(node_tst *n, vector<string> &p) const{
   if(n != NULL){
     if(n->_valor == phone::ENDPREF){
       // string res = _phones[n->_x].nom();
       p.push_back(_phones[n->_x].nom());
     }
-    mostrar_trie(n->_esq, p);
-    mostrar_trie(n->_dret, p);
-    mostrar_trie(n->_cen, p);
+    obte_tots(n->_esq, p);
+    obte_tots(n->_dret, p);
+    obte_tots(n->_cen, p);
   }
 }
 
-typename easy_dial::node_tst* easy_dial::consulta_r(node_tst *n, nat i, const string& prefix, vector<string>& p) const{
-  // vector<phone> result;
+typename easy_dial::node_tst* easy_dial::obte_noms(node_tst *n, nat i, const string& prefix, vector<string>& p) const{
   node_tst *res = NULL;
   if(n != NULL){
     if(i <= prefix.length()-1){
       if(n->_valor > prefix[i]){
-        res = consulta_r(n->_esq, i, prefix, p);
+        res = obte_noms(n->_esq, i, prefix, p);
       }
       else if(n->_valor < prefix[i]){
-        res = consulta_r(n->_dret, i, prefix, p);
+        res = obte_noms(n->_dret, i, prefix, p);
       }
       else if(n->_valor == prefix[i]){
-        res = consulta_r(n->_cen, i+1, prefix, p);
+        res = obte_noms(n->_cen, i+1, prefix, p);
       }
     } else { // i == prefix.length() - 1
       res = n;
-      mostrar_trie(res, p);
+      cout << res->_valor << endl;
+      obte_tots(res, p);
+    }
+  }
+  return res;
+}
+
+void easy_dial::obte_nom_max_freq(node_tst *n, int &max_freq, string &nom_resultat){
+  if(n != NULL){
+    if(n->_valor == phone::ENDPREF){
+      // cout << "variable max_freq: " << max_freq << endl;
+      // cout << "variable nom_resultat: "<< nom_resultat << endl;
+      // cout << "frequencia: "<<_phones[n->_x].frequencia() << endl;
+      // cout << "nom: " << _phones[n->_x].nom() << endl;
+      // Comprovem si la frequencia es major que la actual
+      if(max_freq <= _phones[n->_x].frequencia()){
+        // SI max_freq == a la freq del phone phone.nom()>phone2.nom()
+        max_freq = _phones[n->_x].frequencia();
+        // cout << "nova_freq: " << max_freq << endl;
+        nom_resultat = _phones[n->_x].nom();
+        // cout << "nou_nom_res: " << nom_resultat << endl;
+        pos = n->_x;
+        // cout <<" posicio en el vector phones: " << pos << endl;
+        // cout << _phones[8].nom() << endl;
+      }
+    }
+    obte_nom_max_freq(n->_esq, max_freq, nom_resultat);
+    obte_nom_max_freq(n->_dret, max_freq, nom_resultat);
+    obte_nom_max_freq(n->_cen, max_freq, nom_resultat);
+  }
+}
+
+
+typename easy_dial::node_tst* easy_dial::obte_nom_max_freq(node_tst *n, nat i, const string& prefix, string &nom_resultat){
+  // Variable que guarda a frequencia mes alta actual
+  int max_freq = 0;
+  node_tst *res = NULL;
+  if(n != NULL){
+    if(i <= prefix.length()-1){
+      if(n->_valor > prefix[i]){
+        res = obte_nom_max_freq(n->_esq, i, prefix, nom_resultat);
+      }
+      else if(n->_valor < prefix[i]){
+        res = obte_nom_max_freq(n->_dret, i, prefix, nom_resultat);
+      }
+      else if(n->_valor == prefix[i]){
+        res = obte_nom_max_freq(n->_cen, i+1, prefix, nom_resultat);
+      }
+    } else {
+      res = n;
+      cout <<  res->_valor << endl;
+      obte_nom_max_freq(res, max_freq, nom_resultat);
     }
   }
   return res;
@@ -171,16 +244,46 @@ typename easy_dial::node_tst* easy_dial::consulta_r(node_tst *n, nat i, const st
 
 
 void easy_dial::esborra(node_tst *n) {
-  if(n->_esq != NULL) {
+  if(n != NULL){
     esborra(n->_esq);
-  }
-  else if (n->_dret != NULL) {
     esborra(n->_dret);
-  }
-  else if (n->_cen != NULL) {
     esborra(n->_cen);
-  }
-  else {
     delete n;
   }
 }
+
+
+/*
+// Version definitiva obtenoms
+void easy_dial::obte_tots(node_tst *n, vector<string> &p) const{
+  if(n != NULL){
+    if(n->_valor == phone::ENDPREF){
+      // string res = _phones[n->_x].nom();
+      p.push_back(_phones[n->_x].nom());
+    }
+    obte_tots(n->_esq, p);
+    obte_tots(n->_dret, p);
+    obte_tots(n->_cen, p);
+  }
+}
+
+typename easy_dial::node_tst* easy_dial::obte_noms(node_tst *n, nat i, const string& prefix, vector<string>& p) const{
+  node_tst *res = NULL;
+  if(n != NULL){
+    if(i <= prefix.length()-1){
+      if(n->_valor > prefix[i]){
+        res = obte_noms(n->_esq, i, prefix, p);
+      }
+      else if(n->_valor < prefix[i]){
+        res = obte_noms(n->_dret, i, prefix, p);
+      }
+      else if(n->_valor == prefix[i]){
+        res = obte_noms(n->_cen, i+1, prefix, p);
+      }
+    } else { // i == prefix.length() - 1
+      res = n;
+      obte_tots(res, p);
+    }
+  }
+  return res;
+}*/

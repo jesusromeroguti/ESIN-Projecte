@@ -11,6 +11,7 @@ int main(){
   c.assigna_nom(321, "Marta");
   c.registra_trucada(321);
   c.registra_trucada(321);
+  c.registra_trucada(321);
   c.assigna_nom(983, "Maria");
   c.assigna_nom(789, "Mara");
   c.assigna_nom(777, "Mas");
@@ -19,13 +20,18 @@ int main(){
   c.assigna_nom(666, "Maru");
   c.assigna_nom(555, "M");
   c.assigna_nom(333, "Jesus");
+  c.registra_trucada(333);
+  c.registra_trucada(333);
   c.assigna_nom(222, "Jose");
   c.assigna_nom(111, "Jes");
+  c.assigna_nom(121, "Jis");
+  c.registra_trucada(121);
 
   easy_dial e(c);
   vector<string> v;
+  int pos;
   cout << v.size() << endl;
-  e.comencen("Mariz", v);
+  e.comencen("J", v);
   cout << v.size() << endl;
   for(int i = 0; i < v.size(); i++){
     cout << v[i] << endl;
@@ -34,4 +40,13 @@ int main(){
   cout << "----------------------" << endl;
 
   cout << e.inici() <<endl;
+
+  cout << "----------------------" << endl;
+
+  cout << e.seguent('X') << endl;
+
+  cout << "---------------------" << endl;
+
+  cout << e.num_telf() << endl;
+
 }

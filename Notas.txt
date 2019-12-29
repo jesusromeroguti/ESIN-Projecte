@@ -8,8 +8,10 @@ Dudas, notas, cosas que hacer/acabar:
       - Pre/Post
       - Cost
   - Millorar eficiencia funcio dump. Comparar el amb l'anterior o el seguent, ordenar el vector (quicksort, mergesort)
-
-
+  - num_telf() --> Cada vegada que crido seguent poso a la primera posicio
+                    del vector _phones el telefon resultant
+  - anterior() --> Guardar el nom del telefon anterior resultant de seguent
+                    crear un array historial
 -- Redispersió:
     !! La hashtable encadenament indirecte no es molt sensible al factor de factor_carrega
        aguanta be un 90 - 100% !!
