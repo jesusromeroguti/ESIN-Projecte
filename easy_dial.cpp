@@ -11,16 +11,24 @@ easy_dial::easy_dial(const call_registry& R) throw(error){
 
 /* Tres grans. Constructor per còpia, operador d'assignació i destructor. */
 easy_dial::easy_dial(const easy_dial& D) throw(error){
-  /*_prefix = D._prefix;
+  indefinit = D.indefinit;
+  _prefix = D._prefix;
   if (D._arrel != NULL) {
     esborra(D._arrel);
   }
-  for(int i = 0; i < D.v.size(); ++i) {
-    insereix(D.v[i].nom);
-  }*/
+  _phones = D._phones;
+  _historial = D._historial;
+  pos = D.pos;
+  _arrel = copia_tst(D._arrel);
+
 }
 
-easy_dial& easy_dial::operator=(const easy_dial& D) throw(error){}
+easy_dial& easy_dial::operator=(const easy_dial& D) throw(error){
+  if(this != &D) {
+    easy_dial aux(&D);
+  }
+  return *this;
+}
 
 easy_dial::~easy_dial() throw(){
   esborra(_arrel);
@@ -114,6 +122,8 @@ la suma de totes les freqüències. */
 double easy_dial::longitud_mitjana() const throw(){
   // A l'hora de construir podem afegir el numero de pulsacions
   // necessaries per que aparegui el nom del telefon
+  //Pr(s) = freq(s) / sum(freq(X))
+  // t(s) = num crides seguent(s) (he posat s per posar algo, ja se q se li passa un char jajaj)
 }
 
 typename easy_dial::node_tst* easy_dial::insereix_r(node_tst *n, nat i, string s, int x){
@@ -240,6 +250,20 @@ void easy_dial::esborra(node_tst *n) {
   }
 }
 
+typename easy_dial::node_tst* easy_dial::copia_tst(node_tst *m){
+  node_tst *n;
+  if (m == NULL) {
+    n = NULL;
+  } else {
+    n = new node_tst;
+    n->_valor = m->_valor;
+    n->_x = m->_x;
+    n->_esq = copia_tst(m->_esq);
+    n->_dret = copia_tst(m->_dret);
+    n->_cen = copia_tst(m->_cen);
+  }
+  return n;
+}
 
 /*
 // Version definitiva obtenoms
