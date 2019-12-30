@@ -1,14 +1,11 @@
 #include "easy_dial.hpp"
 
-// Afegir els noms per ordre de frequencia
 easy_dial::easy_dial(const call_registry& R) throw(error){
   // El prefix al construir el easy_dial es indefinit
   indefinit = true;
-  // vector<phone> v;
   R.dump(_phones);
   for(int i = 0; i < _phones.size(); i++){
     insereix(_phones[i].nom(), i);
-    // insereix(_phones[i].nom());
   }
 }
 
@@ -37,7 +34,10 @@ string easy_dial::inici() throw(){
   indefinit = false;
   // Si el vector esta buit easy_dial també per tant retornara el string buit.
   if(_phones.size() != 0){
+    // Actualitzem l'ultim resultat;
     res = _phones[0].nom();
+    ultim_resultat = res;
+    cout << ultim_resultat << endl;
   } else pos = -1;
   return res;
 }
@@ -52,22 +52,22 @@ llavors es produeix un error i el prefix en curs queda indefinit.
 Naturalment, es produeix un error si el prefix en curs inicial p
 fos indefinit. */
 string easy_dial::seguent(char c) throw(error){
-  cout << indefinit << endl;
   if(indefinit) throw error(ErrPrefixIndef);
-  // if(_phones.size() != 0) indefinit = true;
-  // if(_prefix == "") throw error(ErrPrefixIndef);
-  cout << "_prefix: " <<_prefix << endl;
+  if(pos == -1) {
+    indefinit = true;
+    throw error(ErrPrefixIndef);
+  }
   _prefix = _prefix + c;
-  cout << "_prefix: " <<_prefix << endl;
   string nom_resultat = "";
+  cout << ultim_resultat << endl;
   node_tst *n = obte_nom_max_freq(_arrel, 0, _prefix, nom_resultat);
   // Actualitzem _historial
   if(nom_resultat != ""){
     _historial.push_back(nom_resultat);
-    // cout << "nom_resultat: " << nom_resultat << endl;
-    for(int i = 0; i < _historial.size(); i++){
-      cout << _historial[i] << endl;
-    }
+    ultim_resultat = nom_resultat;
+    // for(int i = 0; i < _historial.size(); i++){
+    //   cout << _historial[i] << endl;
+    // }
   } else pos = -1;
   return nom_resultat;
 }
@@ -97,11 +97,6 @@ nat easy_dial::num_telf() const throw(error){
 /* Retorna en el vector result tots els noms dels contactes de
 telèfon que comencen amb el prefix pref, en ordre lexicogràfic creixent. */
 void easy_dial::comencen(const string& pref, vector<string>& result) const throw(error){
-  // for(int i = 0; i< _phones.size(); i++){
-  //   cout << _phones[i].nom() << endl;
-  // }
-  // cout << " ---------------------- " << endl;
-  // node_tst *res = consulta_r(_arrel, 0, pref, result);
   // Falta ordenar els noms en ordre lexicogràfic creixent
   node_tst *l = obte_noms(_arrel, 0, pref, result);
 
@@ -127,14 +122,12 @@ typename easy_dial::node_tst* easy_dial::insereix_r(node_tst *n, nat i, string s
     n->_esq = n->_dret = n->_cen = NULL;
     n->_valor = s[i];
     n->_x = -1;
-    // cout << n->_x << endl;
     try{
       if(i < s.length()-1){
         n->_cen = insereix_r(n->_cen, i+1, s, x);
       } else { // i == s.length-1 --> s[i] == ENDPREF
         n->_valor = s[i];   // Realmente no hace falta, ya lo haces arriba.
         n->_x = x;      // Si es el node que conte \0 llavors posem la posicio del vector
-        // cout << n->_x << endl;
       }
     } catch (...){
       delete n;
@@ -161,7 +154,6 @@ void easy_dial::insereix(const string &n, int x) throw(error){
 void easy_dial::obte_tots(node_tst *n, vector<string> &p) const{
   if(n != NULL){
     if(n->_valor == phone::ENDPREF){
-      // string res = _phones[n->_x].nom();
       p.push_back(_phones[n->_x].nom());
     }
     obte_tots(n->_esq, p);
@@ -195,20 +187,17 @@ typename easy_dial::node_tst* easy_dial::obte_noms(node_tst *n, nat i, const str
 void easy_dial::obte_nom_max_freq(node_tst *n, int &max_freq, string &nom_resultat){
   if(n != NULL){
     if(n->_valor == phone::ENDPREF){
-      // cout << "variable max_freq: " << max_freq << endl;
-      // cout << "variable nom_resultat: "<< nom_resultat << endl;
-      // cout << "frequencia: "<<_phones[n->_x].frequencia() << endl;
-      // cout << "nom: " << _phones[n->_x].nom() << endl;
-      // Comprovem si la frequencia es major que la actual
       if(max_freq <= _phones[n->_x].frequencia()){
-        // SI max_freq == a la freq del phone phone.nom()>phone2.nom()
-        max_freq = _phones[n->_x].frequencia();
-        // cout << "nova_freq: " << max_freq << endl;
-        nom_resultat = _phones[n->_x].nom();
-        // cout << "nou_nom_res: " << nom_resultat << endl;
-        pos = n->_x;
-        // cout <<" posicio en el vector phones: " << pos << endl;
-        // cout << _phones[8].nom() << endl;
+        if(_phones[n->_x].nom() != ultim_resultat){
+          // SI max_freq == a la freq del phone phone.nom()>phone2.nom()
+          if(max_freq == _phones[n->_x].frequencia()){
+            nom_resultat = (nom_resultat >= _phones[n->_x].nom() ? nom_resultat : _phones[n->_x].nom());
+          } else {
+            max_freq = _phones[n->_x].frequencia();
+            nom_resultat = _phones[n->_x].nom();
+            pos = n->_x;
+          }
+        }
       }
     }
     obte_nom_max_freq(n->_esq, max_freq, nom_resultat);
@@ -235,7 +224,6 @@ typename easy_dial::node_tst* easy_dial::obte_nom_max_freq(node_tst *n, nat i, c
       }
     } else {
       res = n;
-      cout <<  res->_valor << endl;
       obte_nom_max_freq(res, max_freq, nom_resultat);
     }
   }

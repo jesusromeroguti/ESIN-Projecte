@@ -17,6 +17,7 @@ struct node_tst {
 };
 node_tst *_arrel = NULL;
 string _prefix; // No l'inicialitzem perque ha de ser indefinit.
+string ultim_resultat;
 int pos; // Posicio del telefon amb mes frequencia que te el prefix actual
 bool indefinit; // Boolea que indica si el prefix esta indefinit
 vector<phone> _phones; // vector de phones amb tota la seva informació.
