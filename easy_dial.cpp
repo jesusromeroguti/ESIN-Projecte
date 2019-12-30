@@ -11,16 +11,23 @@ easy_dial::easy_dial(const call_registry& R) throw(error){
 
 /* Tres grans. Constructor per còpia, operador d'assignació i destructor. */
 easy_dial::easy_dial(const easy_dial& D) throw(error){
-  /*_prefix = D._prefix;
+  indefinit = D.indefinit;
+  _prefix = D._prefix;
   if (D._arrel != NULL) {
     esborra(D._arrel);
   }
-  for(int i = 0; i < D.v.size(); ++i) {
-    insereix(D.v[i].nom);
-  }*/
+  _phones = D._phones;
+  _historial = D._historial;
+  pos = D.pos;
+  _arrel = copia_tst(D._arrel);
 }
 
-easy_dial& easy_dial::operator=(const easy_dial& D) throw(error){}
+easy_dial& easy_dial::operator=(const easy_dial& D) throw(error){
+  if(this != &D) {
+    easy_dial aux(&D);
+  }
+  return *this;
+}
 
 easy_dial::~easy_dial() throw(){
   esborra(_arrel);
@@ -52,6 +59,7 @@ llavors es produeix un error i el prefix en curs queda indefinit.
 Naturalment, es produeix un error si el prefix en curs inicial p
 fos indefinit. */
 string easy_dial::seguent(char c) throw(error){
+  vector<string>::iterator it;
   if(indefinit) throw error(ErrPrefixIndef);
   if(pos == -1) {
     indefinit = true;
@@ -59,11 +67,13 @@ string easy_dial::seguent(char c) throw(error){
   }
   _prefix = _prefix + c;
   string nom_resultat = "";
-  cout << ultim_resultat << endl;
+  cout << "ultim_resultat: " <<ultim_resultat << endl;
   node_tst *n = obte_nom_max_freq(_arrel, 0, _prefix, nom_resultat);
   // Actualitzem _historial
   if(nom_resultat != ""){
-    _historial.push_back(nom_resultat);
+    it = _historial.begin();
+    // _historial.push_back(nom_resultat);
+    _historial.insert(it, nom_resultat);
     ultim_resultat = nom_resultat;
     // for(int i = 0; i < _historial.size(); i++){
     //   cout << _historial[i] << endl;
@@ -79,9 +89,14 @@ Es produeix un error si p fos buida i si es fa que el prefix en curs
 quedi indefinit. Òbviament, també es produeix un error
 si p fos indefinit. */
 string easy_dial::anterior() throw(error){
-  if(indefinit) throw error(ErrPrefixIndef);
   string nom_resultat;
-  nom_resultat = _historial[_historial.size()-1];
+  if(indefinit) throw error(ErrPrefixIndef);
+  // Eliminem l'ultim caracter del prefix en curs
+  if(_prefix.length() != 0){
+    _prefix.erase(_prefix.end()-1);
+    cout << "_prefix actual: " << _prefix << endl;
+    nom_resultat = _historial[0];
+  } else throw error(ErrNoHiHaAnterior);
   return nom_resultat;
 }
 
@@ -114,6 +129,11 @@ la suma de totes les freqüències. */
 double easy_dial::longitud_mitjana() const throw(){
   // A l'hora de construir podem afegir el numero de pulsacions
   // necessaries per que aparegui el nom del telefon
+
+  // A l'hora de construir podem afegir el numero de pulsacions
+  // necessaries per que aparegui el nom del telefon
+  //Pr(s) = freq(s) / sum(freq(X))
+  // t(s) = num crides seguent(s) (he posat s per posar algo, ja se q se li passa un char jajaj)
 }
 
 typename easy_dial::node_tst* easy_dial::insereix_r(node_tst *n, nat i, string s, int x){
@@ -239,39 +259,3 @@ void easy_dial::esborra(node_tst *n) {
     delete n;
   }
 }
-
-
-/*
-// Version definitiva obtenoms
-void easy_dial::obte_tots(node_tst *n, vector<string> &p) const{
-  if(n != NULL){
-    if(n->_valor == phone::ENDPREF){
-      // string res = _phones[n->_x].nom();
-      p.push_back(_phones[n->_x].nom());
-    }
-    obte_tots(n->_esq, p);
-    obte_tots(n->_dret, p);
-    obte_tots(n->_cen, p);
-  }
-}
-
-typename easy_dial::node_tst* easy_dial::obte_noms(node_tst *n, nat i, const string& prefix, vector<string>& p) const{
-  node_tst *res = NULL;
-  if(n != NULL){
-    if(i <= prefix.length()-1){
-      if(n->_valor > prefix[i]){
-        res = obte_noms(n->_esq, i, prefix, p);
-      }
-      else if(n->_valor < prefix[i]){
-        res = obte_noms(n->_dret, i, prefix, p);
-      }
-      else if(n->_valor == prefix[i]){
-        res = obte_noms(n->_cen, i+1, prefix, p);
-      }
-    } else { // i == prefix.length() - 1
-      res = n;
-      obte_tots(res, p);
-    }
-  }
-  return res;
-}*/
