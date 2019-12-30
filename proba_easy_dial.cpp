@@ -37,16 +37,22 @@ int main(){
     cout << v[i] << endl;
   }
 
+  //Prova constr copia
+  easy_dial e2(e);
+
   cout << "----------------------" << endl;
 
   cout << e.inici() <<endl;
+  cout << e2.inici() <<endl;
 
   cout << "----------------------" << endl;
 
   cout << e.seguent('X') << endl;
+  cout << e2.seguent('X') << endl;
 
   cout << "---------------------" << endl;
 
   cout << e.num_telf() << endl;
+  cout << e2.num_telf() << endl;
 
 }

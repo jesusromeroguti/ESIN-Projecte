@@ -250,7 +250,6 @@ typename easy_dial::node_tst* easy_dial::obte_nom_max_freq(node_tst *n, nat i, c
   return res;
 }
 
-
 void easy_dial::esborra(node_tst *n) {
   if(n != NULL){
     esborra(n->_esq);
@@ -258,4 +257,19 @@ void easy_dial::esborra(node_tst *n) {
     esborra(n->_cen);
     delete n;
   }
+}
+
+typename easy_dial::node_tst* easy_dial::copia_tst(node_tst *m){
+  node_tst *n;
+  if (m == NULL) {
+    n = NULL;
+  } else {
+    n = new node_tst;
+    n->_valor = m->_valor;
+    n->_x = m->_x;
+    n->_esq = copia_tst(m->_esq);
+    n->_dret = copia_tst(m->_dret);
+    n->_cen = copia_tst(m->_cen);
+  }
+  return n;
 }

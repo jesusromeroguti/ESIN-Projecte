@@ -42,3 +42,6 @@ void esborra(node_tst *n);
 node_tst* obte_nom_max_freq(node_tst *n, nat i, const string& prefix, string &nom_resultat);
 
 void obte_nom_max_freq(node_tst *n, int &max_freq, string &nom_resultat);
+
+//Funció que copia un tst donat un node
+node_tst* copia_tst(node_tst *n);
