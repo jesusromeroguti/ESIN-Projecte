@@ -1,0 +1,57 @@
+phone:
+  constr.:
+  constr. per còpia:
+  destructor:
+  assignació:
+  numero:
+  nom:
+  frequencia:
+  operador ++:
+  operador ++():
+  operador >:
+  operador <:
+  operador <=:
+  operador >=:
+  operador ==:
+  operador !=:
+
+
+call_registry: tots logaritmic o menys. Excepte dump i els lineals
+  constr.: logaritmic o menys -->
+  constr. per còpia: lineal -->
+  destructor: lineal -->
+  assignació: lineal -->
+  registra_trucada: logaritmic o menys -->
+  assigna_nom: logaritmic o menys -->
+  elimina: logaritmic o menys -->
+  conte: logaritmic o menys -->
+  num_trucades: logaritmic o menys -->
+  es_buit: logaritmic o menys -->
+  num_entrades: logaritmic o menys -->
+  dump: -->
+  node_hash: logaritmic o menys -->
+  funcio_hash: logaritmic o menys -->
+  pos_element: logaritmic o menys -->
+  swap: logaritmic o menys -->
+  redispersio: logaritmic o menys -->
+  factor_carrega: logaritmic o menys -->
+
+
+easy_dial:
+  constr.: -->
+  constr. per còpia: lineal respecte num noms -->
+  destructor: lineal respecte num noms -->
+  assignació: lineal respecte num noms -->
+  inici: constant respecte num noms -->
+  seguent: constant respecte num noms -->
+  anterior: constant respecte num noms -->
+  num_telef: constant -->
+  comencen: -->
+  longitud_mitjana: -->
+  insereix_r: -->
+  insert: -->
+  obte_tots: -->
+  obte_noms: -->
+  obte_nom_max_freq: -->
+  esborra: -->
+  copia_tst: -->

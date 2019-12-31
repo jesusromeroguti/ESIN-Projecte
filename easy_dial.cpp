@@ -24,7 +24,7 @@ easy_dial::easy_dial(const easy_dial& D) throw(error){
 
 easy_dial& easy_dial::operator=(const easy_dial& D) throw(error){
   if(this != &D) {
-    easy_dial aux(&D);
+    easy_dial aux(D);
   }
   return *this;
 }
@@ -129,11 +129,26 @@ la suma de totes les freqüències. */
 double easy_dial::longitud_mitjana() const throw(){
   // A l'hora de construir podem afegir el numero de pulsacions
   // necessaries per que aparegui el nom del telefon
-
-  // A l'hora de construir podem afegir el numero de pulsacions
-  // necessaries per que aparegui el nom del telefon
-  //Pr(s) = freq(s) / sum(freq(X))
+  // Pr(s) = freq(s) / sum(freq(X))
   // t(s) = num crides seguent(s) (he posat s per posar algo, ja se q se li passa un char jajaj)
+  double prob = 0.0;
+  double sum_freqs = 0.0;
+
+  prob = calcula_prob(_phones);
+  crides = num_crides(_phones); // S'haurà de comparar la frequencia amb els altres s
+}
+
+double easy_dial::calcula_prob(vector<phone> _phones) const throw(){
+  //Calculem la suma de totes
+  for (int i = 0; i < _phones.size(); ++i) {
+    //freqs.insert(phone::frequencia(_phones[i].nom()));
+    sum_freqs += phone::frequencia(_phones[i].nom());
+  }
+  //calculem la probabilitat de cada s
+  for (int i = 0; i < _phones.size(); ++i) {
+    prob += (phone::frequencia(_phones[i].nom()) / sum_freqs);
+  }
+  prob = (prob/_phones.size());
 }
 
 typename easy_dial::node_tst* easy_dial::insereix_r(node_tst *n, nat i, string s, int x){
