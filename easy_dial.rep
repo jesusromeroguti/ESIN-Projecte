@@ -10,6 +10,7 @@
 struct node_tst {
   char _valor;
   int _x;          // index on es troba el phone al vector de phones.
+  bool _visitat;  // NUEVO
   node_tst* _esq;
   node_tst* _dret;
   node_tst* _cen;
@@ -22,6 +23,7 @@ int pos; // Posicio del telefon amb mes frequencia que te el prefix actual
 bool indefinit; // Boolea que indica si el prefix esta indefinit
 vector<phone> _phones; // vector de phones amb tota la seva informació.
 vector<string> _historial; // Historial de resultats de la funcio seguent
+vector<node_tst*> _visitats; // NUEVO vector amb els nodes visitats
 
 // Funcio recursiva per inserir cada caracter d'un nom de telefon al trie
 static node_tst* insereix_r(node_tst *n, nat i, string s, int x);
@@ -41,7 +43,7 @@ void esborra(node_tst *n);
 
 node_tst* obte_nom_max_freq(node_tst *n, nat i, const string& prefix, string &nom_resultat);
 
-void obte_nom_max_freq(node_tst *n, int &max_freq, string &nom_resultat);
+void obte_nom_max_freq(node_tst *n, int &max_freq, string &nom_resultat, node_tst* &vis);
 
 //Funció que copia un tst donat un node
 node_tst* copia_tst(node_tst *n);
