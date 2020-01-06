@@ -18,7 +18,9 @@ easy_dial::easy_dial(const easy_dial& D) throw(error){
   }
   _phones = D._phones;
   _historial = D._historial;
+  _visitats = D._visitats;
   pos = D.pos;
+  ultim_resultat = D.ultim_resultat;
   _arrel = copia_tst(D._arrel);
 }
 
@@ -68,7 +70,6 @@ llavors es produeix un error i el prefix en curs queda indefinit.
 Naturalment, es produeix un error si el prefix en curs inicial p
 fos indefinit. */
 string easy_dial::seguent(char c) throw(error){
-  // vector<string>::iterator it;
   if(indefinit) throw error(ErrPrefixIndef);
   // if(pos == -1) {
   //   indefinit = true;
@@ -133,7 +134,6 @@ telèfon que comencen amb el prefix pref, en ordre lexicogràfic creixent. */
 void easy_dial::comencen(const string& pref, vector<string>& result) const throw(error){
   // Falta ordenar els noms en ordre lexicogràfic creixent
   node_tst *l = obte_noms(_arrel, 0, pref, result);
-
 }
 
 /* Retorna el número mitjà de pulsacions necessàries para obtenir un
@@ -207,6 +207,7 @@ void easy_dial::insereix(const string &n, int x) throw(error){
 }
 
 void easy_dial::obte_tots(node_tst *n, vector<string> &p) const{
+  vector<string>::iterator it;
   if(n != NULL){
     if(n->_valor == phone::ENDPREF){
       p.push_back(_phones[n->_x].nom());
@@ -242,7 +243,7 @@ typename easy_dial::node_tst* easy_dial::obte_noms(node_tst *n, nat i, const str
 void easy_dial::obte_nom_max_freq(node_tst *n, int &max_freq, string &nom_resultat, node_tst* &vis){
   if(n != NULL){
     if(n->_valor == phone::ENDPREF and !n->_visitat){
-      // if(_phones[n->_x].nom() != ultim_resultat){
+      if(_phones[n->_x].nom() != ultim_resultat){
         if(max_freq <= _phones[n->_x].frequencia()){
           vis = n;
           // SI max_freq == a la freq del phone phone.nom()>phone2.nom()
@@ -252,19 +253,15 @@ void easy_dial::obte_nom_max_freq(node_tst *n, int &max_freq, string &nom_result
             max_freq = _phones[n->_x].frequencia();
             nom_resultat = _phones[n->_x].nom();
             pos = n->_x;
-            // cout << res->_x << endl;
           }
         }
-      // }
+      }
     }
 
     obte_nom_max_freq(n->_esq, max_freq, nom_resultat, vis);
     obte_nom_max_freq(n->_dret, max_freq, nom_resultat, vis);
     obte_nom_max_freq(n->_cen, max_freq, nom_resultat, vis);
   }
-  // bool b = res == NULL;
-  // cout << b << endl;
-  // res->_visitat = true;
 }
 
 
