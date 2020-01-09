@@ -56,7 +56,10 @@ string easy_dial::inici() throw(){
     _historial.push_back(res);
     // cout << ultim_resultat << endl;
     _visitats.push_back(aux);
-  } else pos = -1;
+  } else {
+    pos = -1;
+    indefinit = true;
+  }
   return res;
 }
 
@@ -79,7 +82,6 @@ string easy_dial::seguent(char c) throw(error){
   string nom_resultat = "";
   // cout << "ultim_resultat: " <<ultim_resultat << endl;
   node_tst *n = obte_nom_max_freq(_arrel, 0, _prefix, nom_resultat);
-
   // Actualitzem _historial
   if(nom_resultat != ""){
     // it = _historial.begin();
@@ -213,8 +215,8 @@ void easy_dial::obte_tots(node_tst *n, vector<string> &p) const{
       p.push_back(_phones[n->_x].nom());
     }
     obte_tots(n->_esq, p);
-    obte_tots(n->_dret, p);
     obte_tots(n->_cen, p);
+    obte_tots(n->_dret, p);
   }
 }
 
@@ -259,8 +261,8 @@ void easy_dial::obte_nom_max_freq(node_tst *n, int &max_freq, string &nom_result
     }
 
     obte_nom_max_freq(n->_esq, max_freq, nom_resultat, vis);
-    obte_nom_max_freq(n->_dret, max_freq, nom_resultat, vis);
     obte_nom_max_freq(n->_cen, max_freq, nom_resultat, vis);
+    obte_nom_max_freq(n->_dret, max_freq, nom_resultat, vis);
   }
 }
 
